@@ -1,0 +1,174 @@
+swagger: '2.0'
+info:
+  title: Staff Fee Privilege API
+  description: Report the people who used the staff fee privilege for each term
+  version: 1.0.0
+  license:
+    name: GNU Affero General Public License Version 3
+    url: 'http://www.gnu.org/licenses/agpl-3.0.en.html'
+externalDocs:
+  description: GitHub Repository
+  url: 'https://github.com/osu-mist/staff-fee-privilege-api'
+host: api.oregonstate.edu
+schemes:
+  - https
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /staff-fee-privilege:
+    get:
+      description: 'Get all students who use staff fee privilege by term'
+      parameters:
+        - in: query
+          name: term
+          required: true
+          description: 'Term code. Example: 201802'
+          type: string
+        - $ref: '#/parameters/pretty'
+      responses:
+        '200':
+          description: 'Successful response'
+          schema:
+            $ref: '#/definitions/StaffFeePrivilegeResultObjects'
+        '400':
+          description: 'Bad request'
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: 'Internal Server Error'
+          schema:
+            $ref: '#/definitions/Error'
+  /staff-fee-privilege/{osuID}:
+    get:
+      description: 'Get student who uses staff fee privilege by OSU ID'
+      parameters:
+        - name: osuID
+          in: path
+          description: '9 digit OSU ID'
+          required: true
+          type: string
+      responses:
+        '200':
+          description: 'Successful response'
+          schema:
+            $ref: '#/definitions/StaffFeePrivilegeResultObject'
+        '404':
+          description: 'Records not found'
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: 'Internal Server Error'
+          schema:
+            $ref: '#/definitions/Error'
+parameters:
+  pretty:
+    name: pretty
+    in: query
+    type: boolean
+    required: false
+    description: 'If true, JSON response will be pretty-printed'
+definitions:
+  StaffFeePrivilegeResultObjects:
+    properties:
+      links:
+        $ref: '#/definitions/Links'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/StaffFeePrivilegeResultObject'
+  StaffFeePrivilegeResultObject:
+    properties:
+      data:
+        properties:
+          id:
+            type: string
+            description: '9 digit OSU ID'
+          type:
+            type: string
+            description: 'Staff Fee Privilege'
+          links:
+            $ref: '#/definitions/SelfLink'
+          attributes:
+            properties:
+              studentName:
+                type: string
+                description: 'Full name of student'
+              studentLevel:
+                type: string
+                description: 'Student level'
+              studentRate:
+                type: string
+                description: 'Student rate'
+              studentClassification:
+                type: string
+                description: 'Student classification'
+              academicYear:
+                type: string
+                description: 'Academic year'
+              academicPeriod:
+                type: string
+                description: 'Academic period'
+              campus:
+                type: string
+                description: 'Campus'
+              enrollmentStatus:
+                type: string
+                description: 'Enrollment status'
+              currentEnrolled:
+                type: boolean
+                description: 'If true, the person is current enrolled'
+              currentRegistered:
+                type: boolean
+                description: 'If true, the person is current registered'
+              totalCredits:
+                type: number
+                format: integer
+                description: 'Total credits'
+              employeeLastName:
+                type: string
+                description: 'Last name of employee giving waiver to student'
+              employeeFirstName:
+                type: string
+                description: 'First name of employee giving waiver to student'
+              employeeMiddleName:
+                type: string
+                description: 'Middle name of employee giving waiver to student'
+              employeeInstitution:
+                type: string
+                description: 'Institution code for site of employment of employee'
+  Links:
+    properties:
+      self:
+        type: string
+      first:
+        type: string
+      last:
+        type: string
+      prev:
+        type: string
+      next:
+        type: string
+  SelfLink:
+    properties:
+      self:
+        type: string
+        format: url
+        description: 'Self link of resource'
+  Error:
+    properties:
+      status:
+        type: integer
+        description: 'HTTP status code'
+      developerMessage:
+        type: string
+        description: 'An error string aimed at developers'
+      userMesage:
+        type: string
+        description: 'An error string aimed at end users'
+      code:
+        type: integer
+        description: 'Error code'
+      details:
+        type: string
+        description: 'A link to further information about the error'
