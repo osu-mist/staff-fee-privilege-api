@@ -83,8 +83,7 @@ definitions:
         links:
           $ref: '#/definitions/Links'
         data:
-          items:
-            $ref: '#/definitions/StaffFeePrivilegeRourceObject'
+          $ref: '#/definitions/StaffFeePrivilegeRourceObject'
   StaffFeePrivilegeRourceObject:
     properties:
       id:
