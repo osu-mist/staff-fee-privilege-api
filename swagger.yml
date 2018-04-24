@@ -45,7 +45,7 @@ paths:
       parameters:
         - name: osuID
           in: path
-          description: '9 digit OSU ID'
+          description: '9 digit OSU ID of student who benefitting from the staff fee privilege'
           required: true
           type: string
         - $ref: '#/parameters/pretty'
@@ -89,7 +89,7 @@ definitions:
     properties:
       id:
         type: string
-        description: '9 digit OSU ID'
+        description: '9 digit OSU ID of student who benefitting from the staff fee privilege'
         example: '930000000'
       type:
         type: string
