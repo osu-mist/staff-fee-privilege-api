@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: Staff Fee Privilege API
   description: Report the people who used the staff fee privilege for each term
-  version: 1.0.0
+  version: '1.0.0'
   license:
     name: GNU Affero General Public License Version 3
     url: 'http://www.gnu.org/licenses/agpl-3.0.en.html'
@@ -48,6 +48,7 @@ paths:
           description: '9 digit OSU ID'
           required: true
           type: string
+        - $ref: '#/parameters/pretty'
       responses:
         '200':
           description: 'Successful response'
@@ -76,67 +77,91 @@ definitions:
       data:
         type: array
         items:
-          $ref: '#/definitions/StaffFeePrivilegeResultObject'
+          $ref: '#/definitions/StaffFeePrivilegeRourceObject'
   StaffFeePrivilegeResultObject:
+      properties:
+        links:
+          $ref: '#/definitions/Links'
+        data:
+          items:
+            $ref: '#/definitions/StaffFeePrivilegeRourceObject'
+  StaffFeePrivilegeRourceObject:
     properties:
-      data:
+      id:
+        type: string
+        description: '9 digit OSU ID'
+        example: '930000000'
+      type:
+        type: string
+        example: 'staff-fee-privilege'
+      links:
+        $ref: '#/definitions/SelfLink'
+      attributes:
         properties:
-          id:
+          studentLastName:
             type: string
-            description: '9 digit OSU ID'
-          type:
+            description: 'Last name of student'
+          studentFirstName:
             type: string
-            description: 'Staff Fee Privilege'
-          links:
-            $ref: '#/definitions/SelfLink'
-          attributes:
-            properties:
-              studentName:
-                type: string
-                description: 'Full name of student'
-              studentLevel:
-                type: string
-                description: 'Student level'
-              studentRate:
-                type: string
-                description: 'Student rate'
-              studentClassification:
-                type: string
-                description: 'Student classification'
-              academicYear:
-                type: string
-                description: 'Academic year'
-              academicPeriod:
-                type: string
-                description: 'Academic period'
-              campus:
-                type: string
-                description: 'Campus'
-              enrollmentStatus:
-                type: string
-                description: 'Enrollment status'
-              currentEnrolled:
-                type: boolean
-                description: 'If true, the person is current enrolled'
-              currentRegistered:
-                type: boolean
-                description: 'If true, the person is current registered'
-              totalCredits:
-                type: number
-                format: integer
-                description: 'Total credits'
-              employeeLastName:
-                type: string
-                description: 'Last name of employee giving waiver to student'
-              employeeFirstName:
-                type: string
-                description: 'First name of employee giving waiver to student'
-              employeeMiddleName:
-                type: string
-                description: 'Middle name of employee giving waiver to student'
-              employeeInstitution:
-                type: string
-                description: 'Institution code for site of employment of employee'
+            description: 'First name student'
+          studentMiddleName:
+            type: string
+            description: 'Middle name student'
+          studentLevel:
+            type: string
+            description: 'Student level'
+            example: 'Undergraduate'
+          studentRate:
+            type: string
+            description: 'Student rate'
+            example: 'Resident Undergrad'
+          studentClassification:
+            type: string
+            description: 'Student classification'
+            example: 'Sophomore'
+          academicYear:
+            type: string
+            description: 'Academic year'
+            example: 'Acdemic Year 2017-18'
+          academicPeriod:
+            type: string
+            description: 'Academic period'
+            example: 'Fall 2017'
+          campus:
+            type: string
+            description: 'Campus'
+            example: 'Oregon State - Corvallis'
+          enrollmentStatus:
+            type: string
+            description: 'Enrollment status'
+            example: 'Eligible to Register'
+          currentEnrolled:
+            type: boolean
+            description: 'If true, the person is current enrolled'
+          currentRegistered:
+            type: boolean
+            description: 'If true, the person is current registered'
+          totalCredits:
+            type: number
+            format: integer
+            description: 'Total credits'
+          receivableAccount:
+            type: string
+            description: 'Type of transaction in accounts receivable'
+            example: 'OSU Staff Tuition'
+          employeeLastName:
+            type: string
+            description: 'Last name of employee giving waiver to student'
+          employeeFirstName:
+            type: string
+            description: 'First name of employee giving waiver to student'
+          employeeMiddleName:
+            type: string
+            description: 'Middle name of employee giving waiver to student'
+          employeeInstitution:
+            type: string
+            description: 'Institution of employment of employee'
+            example: 'Oregon State University'
   Links:
     properties:
       self:
