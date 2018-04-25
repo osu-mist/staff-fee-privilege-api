@@ -88,6 +88,7 @@ typings/
 # dotenv environment variables file
 .env
 
-
+### API ###
+config.json
 
 # End of https://www.gitignore.io/api/node,macos
