@@ -72,16 +72,12 @@ parameters:
 definitions:
   StaffFeePrivilegeResultObjects:
     properties:
-      links:
-        $ref: '#/definitions/Links'
       data:
         type: array
         items:
           $ref: '#/definitions/StaffFeePrivilegeRourceObject'
   StaffFeePrivilegeResultObject:
       properties:
-        links:
-          $ref: '#/definitions/Links'
         data:
           $ref: '#/definitions/StaffFeePrivilegeRourceObject'
   StaffFeePrivilegeRourceObject:
@@ -161,18 +157,6 @@ definitions:
             type: string
             description: 'Institution of employment of employee'
             example: 'Oregon State University'
-  Links:
-    properties:
-      self:
-        type: string
-      first:
-        type: string
-      last:
-        type: string
-      prev:
-        type: string
-      next:
-        type: string
   SelfLink:
     properties:
       self:
