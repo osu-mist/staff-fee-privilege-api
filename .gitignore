@@ -89,6 +89,6 @@ typings/
 .env
 
 ### API ###
-config.yaml
+config/
 
 # End of https://www.gitignore.io/api/node,macos
