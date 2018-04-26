@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/osu-mist/staff-fee-privilege-api#readme",
   "dependencies": {
+    "config": "^1.30.0",
     "express": "^4.16.3",
     "js-yaml": "^3.11.0",
     "oracledb": "^2.2.0"

@@ -1,15 +1,17 @@
+const config = require('config');
 const express = require('express');
 
-const config = require('./config/config');
+const { getStaffFeePrivileges } = require('./db/db');
 
+const server = config.get('server');
 const app = express();
 
-app.get('/staff-fee-privilege', (req, res) => {
+app.get('/staff-fee-privilege', async (req, res) => {
   let term = req.query.term;
-  console.log(`term: ${term}`);
-  res.send('Hello Node.js!');
+  const result = await getStaffFeePrivileges(term);
+  res.send(result);
 });
 
-app.listen(config.server.port, () => {
-  console.log(`staff-fee-privilege API has started on port ${config.server.port}`);
+app.listen(server.port, () => {
+  console.log(`${server.name} has started on port ${server.port}`);
 });
