@@ -1,6 +1,8 @@
 const config = require('config');
 const oracledb = require('oracledb');
 
+const { getStaffFeePrivilegesByTerm } = require('../contrib/contrib');
+
 const dbConfig = config.get('database');
 
 process.on('SIGINT', () => {
@@ -13,7 +15,7 @@ const getStaffFeePrivileges = (term) => {
 
     try {
       conn = await oracledb.getConnection(dbConfig);
-      let result = await conn.execute('SELECT 1 FROM DUAL');
+      let result = await conn.execute(getStaffFeePrivilegesByTerm, [term]);
       resolve(result.rows);
     } catch (err) {
       reject(err);
