@@ -4,6 +4,7 @@ const oracledb = require('oracledb');
 const { getStaffFeePrivilegesByTerm } = require('../contrib/contrib');
 
 const dbConfig = config.get('database');
+oracledb.outFormat = oracledb.OBJECT;
 
 process.on('SIGINT', () => {
   process.exit()
