@@ -53,7 +53,7 @@ paths:
         '200':
           description: 'Successful response'
           schema:
-            $ref: '#/definitions/StaffFeePrivilegeResultObject'
+            $ref: '#/definitions/StaffFeePrivilegeResultObjects'
         '404':
           description: 'Records not found'
           schema:
