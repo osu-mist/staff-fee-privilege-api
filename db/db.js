@@ -1,7 +1,8 @@
 const config = require('config');
+const _ = require('lodash');
 const oracledb = require('oracledb');
-
 const { getStaffFeePrivilegesByTerm } = require('../contrib/contrib');
+const StaffFeePrivilegeSerializer = require('../serializers/staff-fee-privilege');
 
 const dbConfig = config.get('database');
 oracledb.outFormat = oracledb.OBJECT;
@@ -16,8 +17,9 @@ const getStaffFeePrivileges = (term) => {
 
     try {
       conn = await oracledb.getConnection(dbConfig);
-      let result = await conn.execute(getStaffFeePrivilegesByTerm, [term]);
-      resolve(result.rows);
+      const result = await conn.execute(getStaffFeePrivilegesByTerm, [term]);
+      const jsonapi = StaffFeePrivilegeSerializer.serialize(result.rows);
+      resolve(jsonapi);
     } catch (err) {
       reject(err);
     } finally {

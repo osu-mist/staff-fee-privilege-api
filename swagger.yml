@@ -88,7 +88,7 @@ definitions:
         example: '930000000'
       type:
         type: string
-        example: 'staff-fee-privilege'
+        example: 'staffFeePrivileges'
       links:
         $ref: '#/definitions/SelfLink'
       attributes:
