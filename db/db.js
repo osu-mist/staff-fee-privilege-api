@@ -1,5 +1,4 @@
 const config = require('config');
-const _ = require('lodash');
 const oracledb = require('oracledb');
 const { getStaffFeePrivilegesByTerm } = require('../contrib/contrib');
 const StaffFeePrivilegeSerializer = require('../serializers/staff-fee-privilege');
