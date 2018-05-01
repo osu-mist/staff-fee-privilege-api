@@ -20,6 +20,7 @@
     "config": "^1.30.0",
     "express": "^4.16.3",
     "js-yaml": "^3.11.0",
+    "jsonapi-serializer": "^3.5.6",
     "oracledb": "^2.2.0"
   }
 }
