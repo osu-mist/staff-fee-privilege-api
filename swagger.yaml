@@ -1,14 +1,14 @@
-swagger: '2.0'
+swagger: 2.0
 info:
   title: Staff Fee Privilege API
   description: Report the people who used the staff fee privilege for each term
-  version: '1.0.0'
+  version: 1.0.0
   license:
     name: GNU Affero General Public License Version 3
-    url: 'http://www.gnu.org/licenses/agpl-3.0.en.html'
+    url: http://www.gnu.org/licenses/agpl-3.0.en.html
 externalDocs:
   description: GitHub Repository
-  url: 'https://github.com/osu-mist/staff-fee-privilege-api'
+  url: https://github.com/osu-mist/staff-fee-privilege-api
 host: api.oregonstate.edu
 schemes:
   - https
@@ -18,48 +18,48 @@ produces:
 paths:
   /staff-fee-privilege:
     get:
-      description: 'Get all students who use staff fee privilege by term'
+      description: Get all students who use staff fee privilege by term
       parameters:
         - in: query
           name: term
           required: true
-          description: 'Term code. Example: 201802'
+          description: Term code. Example: 201802
           type: string
         - $ref: '#/parameters/pretty'
       responses:
         '200':
-          description: 'Successful response'
+          description: Successful response
           schema:
             $ref: '#/definitions/StaffFeePrivilegeResultObjects'
         '400':
-          description: 'Bad request'
+          description: Bad request
           schema:
             $ref: '#/definitions/Error'
         '500':
-          description: 'Internal Server Error'
+          description: Internal Server Error
           schema:
             $ref: '#/definitions/Error'
   /staff-fee-privilege/{osuID}:
     get:
-      description: 'Get student who uses staff fee privilege by OSU ID'
+      description: Get student who uses staff fee privilege by OSU ID
       parameters:
         - name: osuID
           in: path
-          description: '9 digit OSU ID of student who benefitting from the staff fee privilege'
+          description: 9 digit OSU ID of student who benefitting from the staff fee privilege
           required: true
           type: string
         - $ref: '#/parameters/pretty'
       responses:
         '200':
-          description: 'Successful response'
+          description: Successful response
           schema:
             $ref: '#/definitions/StaffFeePrivilegeResultObjects'
         '404':
-          description: 'Records not found'
+          description: Records not found
           schema:
             $ref: '#/definitions/Error'
         '500':
-          description: 'Internal Server Error'
+          description: Internal Server Error
           schema:
             $ref: '#/definitions/Error'
 parameters:
@@ -68,7 +68,7 @@ parameters:
     in: query
     type: boolean
     required: false
-    description: 'If true, JSON response will be pretty-printed'
+    description: If true, JSON response will be pretty-printed
 definitions:
   StaffFeePrivilegeResultObjects:
     properties:
@@ -84,7 +84,7 @@ definitions:
     properties:
       id:
         type: string
-        description: '9 digit OSU ID of student who benefitting from the staff fee privilege'
+        description: 9 digit OSU ID of student who benefitting from the staff fee privilege
         example: '930000000'
       type:
         type: string
@@ -95,85 +95,79 @@ definitions:
         properties:
           studentLastName:
             type: string
-            description: 'Last name of student'
+            description: Last name of student
           studentFirstName:
             type: string
-            description: 'First name student'
+            description: First name student
           studentMiddleName:
             type: string
-            description: 'Middle name student'
+            description: Middle name student
           studentLevel:
             type: string
-            description: 'Student level'
+            description: Student level
             example: 'Undergraduate'
           studentRate:
             type: string
-            description: 'Student rate'
+            description: Student rate
             example: 'Resident Undergrad'
           studentClassification:
             type: string
-            description: 'Student classification'
+            description: Student classification
             example: 'Sophomore'
           academicYear:
             type: string
-            description: 'Academic year'
+            description: Academic year
             example: 'Acdemic Year 2017-18'
           academicPeriod:
             type: string
-            description: 'Academic period'
+            description: Academic period
             example: 'Fall 2017'
           campus:
             type: string
-            description: 'Campus'
+            description: Campus
             example: 'Oregon State - Corvallis'
           enrollmentStatus:
             type: string
-            description: 'Enrollment status'
+            description: Enrollment status
             example: 'Eligible to Register'
           currentEnrolled:
             type: boolean
-            description: 'If true, the person is current enrolled'
+            description: If true, the person is current enrolled
           currentRegistered:
             type: boolean
-            description: 'If true, the person is current registered'
+            description: If true, the person is current registered
           totalCredits:
             type: number
             format: integer
-            description: 'Total credits'
+            description: Total credits
           receivableAccount:
             type: string
-            description: 'Type of transaction in accounts receivable'
+            description: Type of transaction in accounts receivable
             example: 'OSU Staff Tuition'
           employeeLastName:
             type: string
-            description: 'Last name of employee giving waiver to student'
+            description: Last name of employee giving waiver to student
           employeeFirstName:
             type: string
-            description: 'First name of employee giving waiver to student'
+            description: First name of employee giving waiver to student
           employeeInstitution:
             type: string
-            description: 'Institution of employment of employee'
+            description: Institution of employment of employee
             example: 'Oregon State University'
   SelfLink:
     properties:
       self:
         type: string
         format: url
-        description: 'Self link of resource'
+        description: Self link of resource
   Error:
     properties:
       status:
-        type: integer
-        description: 'HTTP status code'
-      developerMessage:
         type: string
-        description: 'An error string aimed at developers'
-      userMesage:
+        description: The HTTP status code applicable to this problem, expressed as a string value
+      title:
         type: string
-        description: 'An error string aimed at end users'
-      code:
-        type: integer
-        description: 'Error code'
-      details:
+        description: A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization
+      detail:
         type: string
-        description: 'A link to further information about the error'
+        description: A human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized
