@@ -5,9 +5,7 @@ const StaffFeePrivilegeSerializer = require('../serializers/staff-fee-privilege'
 const db = config.get('database');
 oracledb.outFormat = oracledb.OBJECT;
 
-process.on('SIGINT', () => {
-  process.exit()
-});
+process.on('SIGINT', () => process.exit());
 
 const getStaffFeePrivilegesBy = (filter, query) => {
   return new Promise(async (resolve, reject) => {
