@@ -23,7 +23,7 @@ paths:
         - in: query
           name: term
           required: true
-          description: Term code. Example: 201802
+          description: Term code (e.g., 201802)
           type: string
         - $ref: '#/parameters/pretty'
       responses:
@@ -55,7 +55,7 @@ paths:
           schema:
             $ref: '#/definitions/StaffFeePrivilegeResultObjects'
         '404':
-          description: Records not found
+          description: A staff fee privilege record with the specified ID was not found.
           schema:
             $ref: '#/definitions/Error'
         '500':
