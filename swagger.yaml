@@ -150,9 +150,6 @@ definitions:
           employeeFirstName:
             type: string
             description: 'First name of employee giving waiver to student'
-          employeeMiddleName:
-            type: string
-            description: 'Middle name of employee giving waiver to student'
           employeeInstitution:
             type: string
             description: 'Institution of employment of employee'
