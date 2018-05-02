@@ -2,7 +2,7 @@ const config = require('config');
 const oracledb = require('oracledb');
 const StaffFeePrivilegeSerializer = require('../serializers/staff-fee-privilege');
 
-const dbConfig = config.get('database');
+const db = config.get('database');
 oracledb.outFormat = oracledb.OBJECT;
 
 process.on('SIGINT', () => {
@@ -14,7 +14,7 @@ const getStaffFeePrivilegesBy = (filter, query) => {
     let conn;
 
     try {
-      conn = await oracledb.getConnection(dbConfig);
+      conn = await oracledb.getConnection(db);
       const result = await conn.execute(query, [filter]);
       const jsonapi = StaffFeePrivilegeSerializer.serialize(result.rows);
       resolve(jsonapi);
