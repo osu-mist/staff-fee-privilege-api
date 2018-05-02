@@ -16,14 +16,14 @@ const httpsServer = https.createServer(credentials, app);
 
 // GET /staff-fee-privilege
 app.get('/staff-fee-privilege', async (req, res) => {
-  let term = req.query.term;
+  const term = req.query.term;
   const result = await getStaffFeePrivilegesBy(term, getStaffFeePrivilegesByTerm);
   res.send(result);
 });
 
 // GET /staff-fee-privilege/:id
 app.get('/staff-fee-privilege/:id', async (req, res) => {
-  let id = req.params.id;
+  const id = req.params.id;
   const result = await getStaffFeePrivilegesBy(id, getStaffFeePrivilegesById);
   res.send(result);
 });
