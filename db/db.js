@@ -10,7 +10,6 @@ process.on('SIGINT', () => process.exit());
 const getStaffFeePrivilegesBy = (filter, query) => {
   return new Promise(async (resolve, reject) => {
     let conn;
-
     try {
       conn = await oracledb.getConnection(db);
       const result = await conn.execute(query, [filter]);
