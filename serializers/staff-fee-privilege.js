@@ -5,6 +5,7 @@ const yaml = require('js-yaml');
 const _ = require('lodash');
 const JSONAPISerializer = require('jsonapi-serializer').Serializer;
 
+
 const api = config.get('api');
 
 // Read attributes from swagger and adjust them to match oracledb column names

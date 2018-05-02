@@ -4,6 +4,7 @@ const oracledb = require('oracledb');
 
 const StaffFeePrivilegeSerializer = require('../serializers/staff-fee-privilege');
 
+
 const db = config.get('database');
 oracledb.outFormat = oracledb.OBJECT;
 

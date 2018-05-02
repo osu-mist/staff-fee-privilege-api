@@ -1,10 +1,13 @@
 const config = require('config');
 const express = require('express');
 const fs = require('fs');
+const _ = require('lodash');
 const https = require('https');
 
 const { getStaffFeePrivilegesByTerm, getStaffFeePrivilegesById } = require('./contrib/contrib');
 const { getStaffFeePrivilegesBy } = require('./db/db');
+const { notFound } = require('./errors/errors');
+
 
 // Create HTTPS server
 const server = config.get('server');
@@ -25,7 +28,12 @@ app.get('/staff-fee-privilege', async (req, res) => {
 app.get('/staff-fee-privilege/:id', async (req, res) => {
   const id = req.params.id;
   const result = await getStaffFeePrivilegesBy(id, getStaffFeePrivilegesById);
-  res.send(result);
+
+  if (_.isEmpty(result.data)) {
+    res.status(404).send(notFound('A staff fee privilege record with the specified ID was not found.'));
+  } else {
+    res.send(result);
+  }
 });
 
 // Start HTTPS server
