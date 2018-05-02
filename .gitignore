@@ -90,5 +90,6 @@ typings/
 
 ### API ###
 config/
+!config/example.yaml
 
 # End of https://www.gitignore.io/api/node,macos
