@@ -1,0 +1,14 @@
+server:
+  name: Staff Fee Privilege API
+  port: 8080
+  keyPath: /path/to/key.pem
+  certPath: /path/to/server.crt
+
+database:
+  connectString: localhost/XE
+  user: hr
+  password: welcome
+
+api:
+  name: staff-fee-privilege-api
+  endpointUri: https://api.oregonstate.edu/v1
