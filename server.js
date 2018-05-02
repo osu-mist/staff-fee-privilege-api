@@ -6,7 +6,7 @@ const https = require('https');
 
 const { getStaffFeePrivilegesByTerm, getStaffFeePrivilegesById } = require('./contrib/contrib');
 const { getStaffFeePrivilegesBy } = require('./db/db');
-const { notFound } = require('./errors/errors');
+const { badRequest, internalServerError, notFound } = require('./errors/errors');
 
 
 // Create HTTPS server
@@ -17,22 +17,40 @@ const credentials = { key: privateKey, cert: certificate };
 const app = express();
 const httpsServer = https.createServer(credentials, app);
 
+// Error handler
+const errorHandler = (res, err) => {
+  console.error(err.stack);
+  res.status(500).send(internalServerError('The application encountered an unexpected condition.'));
+}
+
 // GET /staff-fee-privilege
 app.get('/staff-fee-privilege', async (req, res) => {
-  const term = req.query.term;
-  const result = await getStaffFeePrivilegesBy(term, getStaffFeePrivilegesByTerm);
-  res.send(result);
+  try {
+    const term = req.query.term;
+    if (!term) {
+      res.status(400).send(badRequest('Term code need to be provided.'));
+    } else {
+      const result = await getStaffFeePrivilegesBy(term, getStaffFeePrivilegesByTerm);
+      res.send(result);
+    }
+  } catch (err) {
+    errorHandler(res, err);
+  }
 });
 
 // GET /staff-fee-privilege/:id
 app.get('/staff-fee-privilege/:id', async (req, res) => {
-  const id = req.params.id;
-  const result = await getStaffFeePrivilegesBy(id, getStaffFeePrivilegesById);
+  try {
+    const id = req.params.id;
+    const result = await getStaffFeePrivilegesBy(id, getStaffFeePrivilegesById);
 
-  if (_.isEmpty(result.data)) {
-    res.status(404).send(notFound('A staff fee privilege record with the specified ID was not found.'));
-  } else {
-    res.send(result);
+    if (_.isEmpty(result.data)) {
+      res.status(404).send(notFound('A staff fee privilege record with the specified ID was not found.'));
+    } else {
+      res.send(result);
+    }
+  } catch (err) {
+    errorHandler(res, err);
   }
 });
 
