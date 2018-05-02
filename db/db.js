@@ -1,5 +1,7 @@
 const config = require('config');
+const _ = require('lodash');
 const oracledb = require('oracledb');
+
 const StaffFeePrivilegeSerializer = require('../serializers/staff-fee-privilege');
 
 const db = config.get('database');
@@ -13,7 +15,16 @@ const getStaffFeePrivilegesBy = (filter, query) => {
     try {
       conn = await oracledb.getConnection(db);
       const result = await conn.execute(query, [filter]);
-      const jsonapi = StaffFeePrivilegeSerializer.serialize(result.rows);
+      let rows = result.rows;
+
+      // Sanitize raw data from database
+      _.forEach(rows, (row) => {
+        row.CAMPUS = row.CAMPUS.trim();
+        row.CURRENT_ENROLLED = row.CURRENT_ENROLLED == 'Y';
+        row.CURRENT_REGISTERED = row.CURRENT_REGISTERED == 'Y';
+      });
+
+      const jsonapi = StaffFeePrivilegeSerializer.serialize(rows);
       resolve(jsonapi);
     } catch (err) {
       reject(err);
