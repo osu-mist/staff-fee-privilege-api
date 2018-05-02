@@ -25,6 +25,7 @@ const getStaffFeePrivilegesBy = (filter, query) => {
         row.CURRENT_REGISTERED = row.CURRENT_REGISTERED == 'Y';
       });
 
+      // Serialize data to JSON API
       const jsonapi = StaffFeePrivilegeSerializer.serialize(rows);
       resolve(jsonapi);
     } catch (err) {
