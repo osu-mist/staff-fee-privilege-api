@@ -64,3 +64,5 @@ app.get('/staff-fee-privilege/:id', async (req, res) => {
 
 // Start HTTPS server
 httpsServer.listen(server.port);
+
+module.exports = { app };

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/osu-mist/staff-fee-privilege-api#readme",
   "dependencies": {
+    "chai-http": "^4.0.0",
     "config": "^1.30.0",
     "decamelize": "^2.0.0",
     "express": "^4.16.3",
@@ -25,5 +26,10 @@
     "jsonapi-serializer": "^3.5.6",
     "lodash": "^4.17.10",
     "oracledb": "^2.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.1.1",
+    "nodemon": "^1.17.3"
   }
 }
