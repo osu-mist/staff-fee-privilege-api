@@ -4,7 +4,7 @@
   "description": "Report the people who used the staff fee privilege for each term",
   "main": "server.js",
   "scripts": {
-    "lint": "eslint **/*.js --ignore-pattern node_modules/",
+    "lint": "eslint .",
     "test": "mocha --timeout 15000 --exit"
   },
   "pre-commit": [
