@@ -10,19 +10,19 @@ oracledb.outFormat = oracledb.OBJECT;
 
 process.on('SIGINT', () => process.exit());
 
-const getStaffFeePrivilegesBy = (filter, query) => {
-  return new Promise(async (resolve, reject) => {
+const getStaffFeePrivilegesBy = (filter, query) =>
+  new Promise(async (resolve, reject) => {
     let conn;
     try {
       conn = await oracledb.getConnection(db);
       const result = await conn.execute(query, [filter]);
-      let rows = result.rows;
+      const { rows } = result;
 
       // Sanitize raw data from database
       _.forEach(rows, (row) => {
         row.CAMPUS = row.CAMPUS.trim();
-        row.CURRENT_ENROLLED = row.CURRENT_ENROLLED == 'Y';
-        row.CURRENT_REGISTERED = row.CURRENT_REGISTERED == 'Y';
+        row.CURRENT_ENROLLED = row.CURRENT_ENROLLED === 'Y';
+        row.CURRENT_REGISTERED = row.CURRENT_REGISTERED === 'Y';
       });
 
       // Serialize data to JSON API
@@ -40,6 +40,5 @@ const getStaffFeePrivilegesBy = (filter, query) => {
       }
     }
   });
-};
 
 module.exports = { getStaffFeePrivilegesBy };

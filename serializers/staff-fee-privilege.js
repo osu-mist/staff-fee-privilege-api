@@ -10,7 +10,9 @@ const api = config.get('api');
 
 // Read attributes from swagger and adjust them to match oracledb column names
 const swagger = yaml.safeLoad(fs.readFileSync('./swagger.yaml', 'utf8'));
-keys = _.keys(swagger.definitions.StaffFeePrivilegeRourceObject.properties.attributes.properties);
+const keys = _.keys(swagger
+  .definitions.StaffFeePrivilegeRourceObject.properties.attributes.properties);
+
 _.forEach(keys, (key, index) => {
   keys[index] = decamelize(key).toUpperCase();
 });
@@ -22,7 +24,7 @@ module.exports = new JSONAPISerializer(
     id: 'ID',
     keyForAttribute: 'camelCase',
     dataLinks: {
-      self: (row) => `${api.endpointUri}/${api.name}/${row.ID}`
-    }
-  }
+      self: row => `${api.endpointUri}/${api.name}/${row.ID}`,
+    },
+  },
 );

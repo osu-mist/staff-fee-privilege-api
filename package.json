@@ -4,6 +4,7 @@
   "description": "Report the people who used the staff fee privilege for each term",
   "main": "server.js",
   "scripts": {
+    "lint": "eslint *.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,6 +30,9 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.11.0",
     "mocha": "^5.1.1",
     "nodemon": "^1.17.3"
   }
