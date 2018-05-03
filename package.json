@@ -4,9 +4,10 @@
   "description": "Report the people who used the staff fee privilege for each term",
   "main": "server.js",
   "scripts": {
-    "lint": "eslint *.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint **/*.js --ignore-pattern node_modules/",
+    "test": "mocha --timeout 15000 --exit"
   },
+  "pre-commit": ["lint"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/osu-mist/staff-fee-privilege-api.git"

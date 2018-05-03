@@ -1,16 +1,14 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const config = require('config');
-
 const { app } = require('../server');
 
 chai.use(chaiHttp);
-const expect = chai.expect;
-const authentication = config.authentication;
+const { expect } = chai;
+const { authentication } = config;
 
 // Genric HTTP test cases
 const httpAssertion = (res, err, status, contentType) => {
-  expect(err).to.be.null;
   expect(res).to.have.status(status);
   expect(res).to.have.header('content-type', contentType);
 };
@@ -20,7 +18,7 @@ describe('GET /staff-fee-privilege', () => {
     chai.request(app)
       .get('/staff-fee-privilege')
       .auth(authentication.username, authentication.password)
-      .query({ 'term': '201801' })
+      .query({ term: '201801' })
       .end((err, res) => {
         httpAssertion(res, err, 200, 'application/json; charset=utf-8');
         done();

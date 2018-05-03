@@ -4,7 +4,6 @@ const express = require('express');
 const fs = require('fs');
 const https = require('https');
 const _ = require('lodash');
-
 const { getStaffFeePrivilegesByTerm, getStaffFeePrivilegesById } = require('./contrib/contrib');
 const { getStaffFeePrivilegesBy } = require('./db/db');
 const {
@@ -48,7 +47,7 @@ app.get('/staff-fee-privilege', async (req, res) => {
   } catch (err) {
     errorHandler(res, err);
   }
-});
+})
 
 // GET /staff-fee-privilege/:id
 app.get('/staff-fee-privilege/:id', async (req, res) => {
