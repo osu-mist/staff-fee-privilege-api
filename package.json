@@ -7,7 +7,9 @@
     "lint": "eslint **/*.js --ignore-pattern node_modules/",
     "test": "mocha --timeout 15000 --exit"
   },
-  "pre-commit": ["lint"],
+  "pre-commit": [
+    "lint"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/osu-mist/staff-fee-privilege-api.git"
@@ -35,6 +37,7 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
     "mocha": "^5.1.1",
-    "nodemon": "^1.17.3"
+    "nodemon": "^1.17.3",
+    "pre-commit": "^1.2.2"
   }
 }

@@ -17,4 +17,4 @@ module.exports = {
   unauthorized,
   notFound,
   internalServerError,
-}
+};
