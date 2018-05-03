@@ -13,7 +13,7 @@ Report the people who used the staff fee privilege for each term
   $ openssl req -newkey rsa:2048 -new -nodes -keyout key.pem -out csr.pem
   $ openssl x509 -req -days 365 -in csr.pem -signkey key.pem -out server.crt
   ```
-  
+
 4. Copy [config/example.yaml](config/example.yaml) to `config/default.yaml`. Modify as necessary, being careful to avoid committing sensitive data.
 
 ### Installation
@@ -30,8 +30,17 @@ Report the people who used the staff fee privilege for each term
   $ yarn
   ```
 
-### Run
+### Usage
 
-```
-$ node server.js
-```
+1. Update submodule:
+
+  ```
+  $ git submodule init
+  $ git submodule update
+  ```
+
+2. Run the application:
+
+  ```
+  $ node server.js
+  ```
