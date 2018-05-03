@@ -4,6 +4,10 @@ server:
   keyPath: /path/to/key.pem
   certPath: /path/to/server.crt
 
+authentication:
+  username: username
+  password: password
+
 database:
   connectString: localhost/XE
   user: hr
