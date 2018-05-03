@@ -1,12 +1,13 @@
+const basicAuth = require('express-basic-auth')
 const config = require('config');
 const express = require('express');
 const fs = require('fs');
-const _ = require('lodash');
 const https = require('https');
+const _ = require('lodash');
 
 const { getStaffFeePrivilegesByTerm, getStaffFeePrivilegesById } = require('./contrib/contrib');
 const { getStaffFeePrivilegesBy } = require('./db/db');
-const { badRequest, internalServerError, notFound } = require('./errors/errors');
+const { badRequest, unauthorized, notFound, internalServerError } = require('./errors/errors');
 
 
 // Create HTTPS server
@@ -16,6 +17,13 @@ const certificate = fs.readFileSync(server.certPath, 'utf8');
 const credentials = { key: privateKey, cert: certificate };
 const app = express();
 const httpsServer = https.createServer(credentials, app);
+
+// Basic authentication middleware
+const authentication = config.authentication;
+app.use(basicAuth({
+    users: { [authentication.username]: authentication.password },
+    unauthorizedResponse: unauthorized
+}));
 
 // Error handler
 const errorHandler = (res, err) => {

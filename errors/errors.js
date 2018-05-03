@@ -10,8 +10,9 @@ const error = (status, title, description) => {
   });
 };
 
-const notFound = (description) => error(404, 'Not found', description);
 const badRequest = (description) => error(400, 'Bad request', description);
+const unauthorized = () => error(401, 'Unauthorized', 'Unauthorized');
+const notFound = (description) => error(404, 'Not found', description);
 const internalServerError = (description) => error(500, 'Internal Server Error', description);
 
-module.exports = { notFound, badRequest, internalServerError };
+module.exports = { badRequest, unauthorized, notFound, internalServerError };
