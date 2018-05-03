@@ -47,7 +47,7 @@ app.get('/staff-fee-privilege', async (req, res) => {
   } catch (err) {
     errorHandler(res, err);
   }
-})
+});
 
 // GET /staff-fee-privilege/:id
 app.get('/staff-fee-privilege/:id', async (req, res) => {
