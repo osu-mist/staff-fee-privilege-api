@@ -13,13 +13,13 @@ describe('Test sanitize', () => {
   };
   const sanitizedRow = sanitize(rawRow);
 
-  it('should return correct format', (done) => {
+  it('should not have trailing/leading white spaces', (done) => {
     expect(sanitizedRow.CAMPUS).not.to.startsWith(' ');
     expect(sanitizedRow.CAMPUS).not.to.endsWith(' ');
     done();
   });
 
-  it('should return correct type', (done) => {
+  it('should return correct data type', (done) => {
     assert.isBoolean(sanitizedRow.CURRENT_ENROLLED);
     assert.isBoolean(sanitizedRow.CURRENT_REGISTERED);
     done();
