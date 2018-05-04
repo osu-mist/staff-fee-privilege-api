@@ -18,25 +18,20 @@ Report the people who used the staff fee privilege for each term
 
 ### Installation
 
-* Using [npm](https://www.npmjs.com/):
+```shell
+# Using npm
+$ npm install
 
-  ```
-  $ npm install
-  ```
-
-* Using [yarn](https://yarnpkg.com/en/):
-
-  ```
-  $ yarn
-  ```
+# Using yarn
+$ yarn
+```
 
 ### Usage
 
-1. Update submodule:
+1. Fetch the submodule from the contrib repository which contains SQL codes:
 
   ```
-  $ git submodule init
-  $ git submodule update
+  $ git submodule update --init
   ```
 
 2. Run the application:
@@ -44,3 +39,19 @@ Report the people who used the staff fee privilege for each term
   ```
   $ npm start
   ```
+
+### Test
+
+* Run unit tests:
+
+  ```
+  $ npm test
+  ```
+
+* Run [ESLint](https://eslint.org/) to check the code:
+
+  ```
+  $ npm run lint
+  ```
+
+  _Note: We are not following [Airbnb's style](https://github.com/airbnb/javascript) as the JavaScript style guide_
