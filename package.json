@@ -2,10 +2,11 @@
   "name": "staff-fee-privilege-api",
   "version": "1.0.0",
   "description": "Report the people who used the staff fee privilege for each term",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "lint": "eslint .",
-    "test": "mocha --timeout 15000 --exit"
+    "test": "mocha tests/** --timeout 15000 --exit"
   },
   "pre-commit": [
     "lint"

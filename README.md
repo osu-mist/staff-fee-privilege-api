@@ -42,5 +42,5 @@ Report the people who used the staff fee privilege for each term
 2. Run the application:
 
   ```
-  $ node server.js
+  $ npm start
   ```
