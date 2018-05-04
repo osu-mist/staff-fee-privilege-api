@@ -8,6 +8,14 @@ oracledb.outFormat = oracledb.OBJECT;
 
 process.on('SIGINT', () => process.exit());
 
+// Sanitize raw data from database
+const sanitize = (row) => {
+  row.CAMPUS = row.CAMPUS.trim();
+  row.CURRENT_ENROLLED = row.CURRENT_ENROLLED === 'Y';
+  row.CURRENT_REGISTERED = row.CURRENT_REGISTERED === 'Y';
+  return row;
+};
+
 const getStaffFeePrivilegesBy = (filter, query) =>
   new Promise(async (resolve, reject) => {
     let conn;
@@ -16,12 +24,7 @@ const getStaffFeePrivilegesBy = (filter, query) =>
       const result = await conn.execute(query, [filter]);
       const { rows } = result;
 
-      // Sanitize raw data from database
-      _.forEach(rows, (row) => {
-        row.CAMPUS = row.CAMPUS.trim();
-        row.CURRENT_ENROLLED = row.CURRENT_ENROLLED === 'Y';
-        row.CURRENT_REGISTERED = row.CURRENT_REGISTERED === 'Y';
-      });
+      _.forEach(result, row => sanitize(row));
 
       // Serialize data to JSON API
       const jsonapi = StaffFeePrivilegeSerializer.serialize(rows);
@@ -39,4 +42,4 @@ const getStaffFeePrivilegesBy = (filter, query) =>
     }
   });
 
-module.exports = { getStaffFeePrivilegesBy };
+module.exports = { getStaffFeePrivilegesBy, sanitize };
