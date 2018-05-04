@@ -44,7 +44,7 @@ $ yarn
 
 ## Running the tests
 
-## Linting
+### Linting
 
 Run [ESLint](https://eslint.org/) to check the code:
 
@@ -54,7 +54,7 @@ $ npm run lint
 
 _Note: We are following [Airbnb's style](https://github.com/airbnb/javascript) as the JavaScript style guide_
 
-## Testing
+### Testing
 
 Run unit tests:
 
