@@ -3,7 +3,9 @@
 Report the people who used the staff fee privilege for each term.
 
 
-## Prerequisites
+## Getting Started
+
+### Prerequisites
 
 1. Install Node.js from [nodejs.org](https://nodejs.org/en/).
 2. Install [Oracle Instant Client](http://www.oracle.com/technetwork/database/database-technologies/instant-client/overview/index.html) by following [here](https://oracle.github.io/odpi/doc/installation.html).
@@ -16,7 +18,7 @@ Report the people who used the staff fee privilege for each term.
 
 4. Copy [config/example.yaml](config/example.yaml) to `config/default.yaml`. Modify as necessary, being careful to avoid committing sensitive data.
 
-## Installation
+### Installing
 
 ```shell
 # Using npm
@@ -26,7 +28,7 @@ $ npm install
 $ yarn
 ```
 
-## Usage
+### Usage
 
 1. Fetch the submodule from the contrib repository which contains SQL codes:
 
@@ -40,18 +42,22 @@ $ yarn
   $ npm start
   ```
 
-## Test
+## Running the tests
 
-* Run unit tests:
+## Linting
 
-  ```
-  $ npm test
-  ```
+Run [ESLint](https://eslint.org/) to check the code:
 
-* Run [ESLint](https://eslint.org/) to check the code:
+```
+$ npm run lint
+```
 
-  ```
-  $ npm run lint
-  ```
+_Note: We are following [Airbnb's style](https://github.com/airbnb/javascript) as the JavaScript style guide_
 
-  _Note: We are following [Airbnb's style](https://github.com/airbnb/javascript) as the JavaScript style guide_
+## Testing
+
+Run unit tests:
+
+```
+$ npm test
+```
