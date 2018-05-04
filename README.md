@@ -54,4 +54,4 @@ $ yarn
   $ npm run lint
   ```
 
-  _Note: We are not following [Airbnb's style](https://github.com/airbnb/javascript) as the JavaScript style guide_
+  _Note: We are following [Airbnb's style](https://github.com/airbnb/javascript) as the JavaScript style guide_
