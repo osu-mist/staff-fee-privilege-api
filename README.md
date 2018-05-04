@@ -1,9 +1,9 @@
 # Staff Fee Privilege API
 
-Report the people who used the staff fee privilege for each term
+Report the people who used the staff fee privilege for each term.
 
 
-### Prerequisites
+## Prerequisites
 
 1. Install Node.js from [nodejs.org](https://nodejs.org/en/).
 2. Install [Oracle Instant Client](http://www.oracle.com/technetwork/database/database-technologies/instant-client/overview/index.html) by following [here](https://oracle.github.io/odpi/doc/installation.html).
@@ -16,7 +16,7 @@ Report the people who used the staff fee privilege for each term
 
 4. Copy [config/example.yaml](config/example.yaml) to `config/default.yaml`. Modify as necessary, being careful to avoid committing sensitive data.
 
-### Installation
+## Installation
 
 ```shell
 # Using npm
@@ -26,7 +26,7 @@ $ npm install
 $ yarn
 ```
 
-### Usage
+## Usage
 
 1. Fetch the submodule from the contrib repository which contains SQL codes:
 
@@ -40,7 +40,7 @@ $ yarn
   $ npm start
   ```
 
-### Test
+## Test
 
 * Run unit tests:
 
