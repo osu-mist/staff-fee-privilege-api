@@ -12,6 +12,8 @@ database:
   connectString: localhost/XE
   user: hr
   password: welcome
+  poolMin: 3
+  poolMax: 30
 
 api:
   name: staff-fee-privilege-api
