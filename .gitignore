@@ -1,7 +1,6 @@
-
 # Created by https://www.gitignore.io/api/node,macos
 
-### macOS ###
+# macOS
 *.DS_Store
 .AppleDouble
 .LSOverride
@@ -88,7 +87,14 @@ typings/
 # dotenv environment variables file
 .env
 
-### API ###
+# API
 config/*.yaml
+
+# Keytool Files
+*.pem
+*.cer
+*.crt
+*.keystore
+*.truststore
 
 # End of https://www.gitignore.io/api/node,macos
