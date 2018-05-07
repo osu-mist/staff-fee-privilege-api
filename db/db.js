@@ -24,7 +24,7 @@ const getStaffFeePrivilegesBy = (filter, query) =>
       const result = await conn.execute(query, [filter]);
       const { rows } = result;
 
-      _.forEach(result, row => sanitize(row));
+      _.forEach(rows, row => sanitize(row));
 
       // Serialize data to JSON API
       const jsonapi = StaffFeePrivilegeSerializer.serialize(rows);
