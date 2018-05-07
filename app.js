@@ -15,11 +15,13 @@ const {
 
 // Create HTTPS server
 const server = config.get('server');
-const privateKey = fs.readFileSync(server.keyPath, 'utf8');
-const certificate = fs.readFileSync(server.certPath, 'utf8');
-const credentials = { key: privateKey, cert: certificate };
 const app = express();
-const httpsServer = https.createServer(credentials, app);
+const httpsOptions = {
+  key: fs.readFileSync(server.keyPath, 'utf8'),
+  cert: fs.readFileSync(server.certPath, 'utf8'),
+  secureProtocol: server.secureProtocol,
+};
+const httpsServer = https.createServer(httpsOptions, app);
 
 // Basic authentication middleware
 const { username, password } = config.authentication;

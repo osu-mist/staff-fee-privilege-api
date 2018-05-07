@@ -3,6 +3,7 @@ server:
   port: 8080
   keyPath: /path/to/key.pem
   certPath: /path/to/server.crt
+  secureProtocol: TLSv1_2_method
 
 authentication:
   username: username
