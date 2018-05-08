@@ -1,5 +1,8 @@
+api:
+  name: staff-fee-privilege-api
+  endpointUri: https://api.oregonstate.edu/v1
+
 server:
-  name: Staff Fee Privilege API
   port: 8080
   keyPath: /path/to/key.pem
   certPath: /path/to/server.crt
@@ -16,6 +19,7 @@ database:
   poolMin: 3
   poolMax: 30
 
-api:
-  name: staff-fee-privilege-api
-  endpointUri: https://api.oregonstate.edu/v1
+logger:
+  logsDirectory: logs
+  pattern: yyyy-MM-dd
+  level: all
