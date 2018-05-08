@@ -4,7 +4,6 @@ const express = require('express');
 const fs = require('fs');
 const https = require('https');
 const _ = require('lodash');
-const log4js = require('log4js');
 const { getStaffFeePrivilegesByTerm, getStaffFeePrivilegesById } = require('./contrib/contrib');
 const { getStaffFeePrivilegesBy } = require('./db/db');
 const {
@@ -13,6 +12,7 @@ const {
   notFound,
   internalServerError,
 } = require('./errors/errors');
+const { expressLogger } = require('./middlewares/logger');
 
 // Create HTTPS server
 const server = config.get('server');
@@ -24,27 +24,8 @@ const httpsOptions = {
 };
 const httpsServer = https.createServer(httpsOptions, app);
 
-// Use logger middleware with standard Apache combined log format
-console.log(config.get('logger'));
 
-log4js.configure({
-  appenders: {
-    dateFile: {
-      type: 'dateFile',
-      filename: 'logs/api.log',
-      pattern: '-yyyy-MM-dd',
-      compress: true,
-    },
-    out: {
-      type: 'stdout',
-    },
-  },
-  categories: {
-    default: { appenders: ['dateFile', 'out'], level: 'info' },
-  },
-});
-const logger = log4js.getLogger();
-app.use(log4js.connectLogger(logger, { level: 'info' }));
+app.use(expressLogger);
 
 // Basic authentication middleware
 const { username, password } = config.authentication;
