@@ -1679,6 +1679,12 @@ gulp-nodemon@^2.2.1:
     gulp "^3.9.1"
     nodemon "^1.10.2"
 
+gulp-sequence@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/gulp-sequence/-/gulp-sequence-1.0.0.tgz#862f93e6503e67c350a42948fa666953cf88ba67"
+  dependencies:
+    thunks "^4.9.0"
+
 gulp-util@^3.0.0:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/gulp-util/-/gulp-util-3.0.8.tgz#0054e1e744502e27c04c187c3ecc505dd54bbb4f"
@@ -4069,6 +4075,10 @@ through@2, through@^2.3.6, through@~2.3, through@~2.3.1:
 thunkify@~2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/thunkify/-/thunkify-2.1.2.tgz#faa0e9d230c51acc95ca13a361ac05ca7e04553d"
+
+thunks@^4.9.0:
+  version "4.9.2"
+  resolved "https://registry.yarnpkg.com/thunks/-/thunks-4.9.2.tgz#aac2d353812512160a4611e3008d7a96e3756f8e"
 
 tildify@^1.0.0:
   version "1.2.0"

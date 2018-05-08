@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const eslint = require('gulp-eslint');
 const mocha = require('gulp-mocha');
 const nodemon = require('gulp-nodemon');
+const gulpSequence = require('gulp-sequence');
 
 
 gulp.task('lint', () =>
@@ -16,4 +17,4 @@ gulp.task('test', () =>
 
 gulp.task('start', () => nodemon({ script: 'app.js' }));
 
-gulp.task('run', ['lint', 'test', 'start']);
+gulp.task('run', gulpSequence(['lint', 'test'], 'start'));
