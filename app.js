@@ -13,23 +13,25 @@ const {
 const { authentication } = require('./middlewares/authentication');
 const { expressLogger } = require('./middlewares/logger');
 
+const api = config.get('api').name;
+
 // Create HTTPS server
-const server = config.get('server');
+const serverConfig = config.get('server');
 const app = express();
 const httpsOptions = {
-  key: fs.readFileSync(server.keyPath),
-  cert: fs.readFileSync(server.certPath),
-  secureProtocol: server.secureProtocol,
+  key: fs.readFileSync(serverConfig.keyPath),
+  cert: fs.readFileSync(serverConfig.certPath),
+  secureProtocol: serverConfig.secureProtocol,
 };
 const httpsServer = https.createServer(httpsOptions, app);
 
 // Middlewares
 app.use(expressLogger);
 app.use(authentication);
-app.use('/staff-fee-privilege/healthcheck', require('express-healthcheck')());
+app.use(`/${api}/healthcheck`, require('express-healthcheck')());
 
 // GET /staff-fee-privilege
-app.get('/staff-fee-privilege', async (req, res) => {
+app.get(`/${api}`, async (req, res) => {
   try {
     const { term } = req.query;
     if (!term) {
@@ -44,7 +46,7 @@ app.get('/staff-fee-privilege', async (req, res) => {
 });
 
 // GET /staff-fee-privilege/:id
-app.get('/staff-fee-privilege/:id', async (req, res) => {
+app.get(`/${api}/:id`, async (req, res) => {
   try {
     const { id } = req.params;
     const result = await getStaffFeePrivilegesBy(id, getStaffFeePrivilegesById);
@@ -59,6 +61,6 @@ app.get('/staff-fee-privilege/:id', async (req, res) => {
 });
 
 // Start HTTPS server
-httpsServer.listen(server.port);
+httpsServer.listen(serverConfig.port);
 
 module.exports = { app };

@@ -3,7 +3,7 @@ const _ = require('lodash');
 const oracledb = require('oracledb');
 const StaffFeePrivilegeSerializer = require('../serializers/staff-fee-privilege');
 
-const db = config.get('database');
+const dbConfig = config.get('database');
 oracledb.outFormat = oracledb.OBJECT;
 
 process.on('SIGINT', () => process.exit());
@@ -20,7 +20,7 @@ const getStaffFeePrivilegesBy = (filter, query) =>
   new Promise(async (resolve, reject) => {
     let connection;
     try {
-      oracledb.createPool(db, async (err, pool) => {
+      oracledb.createPool(dbConfig, async (err, pool) => {
         connection = await pool.getConnection();
         const result = await connection.execute(query, [filter]);
         const { rows } = result;
