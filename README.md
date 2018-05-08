@@ -39,7 +39,7 @@ $ yarn
 2. Run the application:
 
   ```
-  $ npm start
+  $ gulp run
   ```
 
 ## Running the tests
@@ -48,8 +48,12 @@ $ yarn
 
 Run [ESLint](https://eslint.org/) to check the code:
 
-```
+```shell
+# Using npm
 $ npm run lint
+
+# Using gult
+$ gult lint
 ```
 
 _Note: We are following [Airbnb's style](https://github.com/airbnb/javascript) as the JavaScript style guide_
@@ -58,6 +62,10 @@ _Note: We are following [Airbnb's style](https://github.com/airbnb/javascript) a
 
 Run unit tests:
 
-```
+```shell
+# Using npm
 $ npm test
+
+# Using gult
+$ gult test
 ```
