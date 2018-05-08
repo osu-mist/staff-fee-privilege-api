@@ -26,6 +26,7 @@ const httpsServer = https.createServer(httpsOptions, app);
 // Middlewares
 app.use(expressLogger);
 app.use(authentication);
+app.use('/staff-fee-privilege/healthcheck', require('express-healthcheck')());
 
 // GET /staff-fee-privilege
 app.get('/staff-fee-privilege', async (req, res) => {
