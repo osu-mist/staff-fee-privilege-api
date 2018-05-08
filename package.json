@@ -4,7 +4,7 @@
   "description": "Report the people who used the staff fee privilege for each term",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "lint": "eslint .",
     "test": "mocha tests/** --exit"
   },
@@ -39,7 +39,12 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^4.0.2",
+    "gulp-mocha": "^5.0.0",
+    "gulp-nodemon": "^2.2.1",
     "mocha": "^5.1.1",
+    "nodemon": "^1.17.4",
     "pre-commit": "^1.2.2"
   }
 }
