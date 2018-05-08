@@ -8,7 +8,7 @@ const { getStaffFeePrivilegesBy } = require('./db/db');
 const {
   badRequest,
   notFound,
-  internalServerError,
+  errorHandler,
 } = require('./errors/errors');
 const { authentication } = require('./middlewares/authentication');
 const { expressLogger } = require('./middlewares/logger');
@@ -17,8 +17,8 @@ const { expressLogger } = require('./middlewares/logger');
 const server = config.get('server');
 const app = express();
 const httpsOptions = {
-  key: fs.readFileSync(server.keyPath, 'utf8'),
-  cert: fs.readFileSync(server.certPath, 'utf8'),
+  key: fs.readFileSync(server.keyPath),
+  cert: fs.readFileSync(server.certPath),
   secureProtocol: server.secureProtocol,
 };
 const httpsServer = https.createServer(httpsOptions, app);
@@ -26,12 +26,6 @@ const httpsServer = https.createServer(httpsOptions, app);
 // Middlewares
 app.use(expressLogger);
 app.use(authentication);
-
-// Error handler
-const errorHandler = (res, err) => {
-  console.error(err.stack);
-  res.status(500).send(internalServerError('The application encountered an unexpected condition.'));
-};
 
 // GET /staff-fee-privilege
 app.get('/staff-fee-privilege', async (req, res) => {
@@ -53,7 +47,6 @@ app.get('/staff-fee-privilege/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const result = await getStaffFeePrivilegesBy(id, getStaffFeePrivilegesById);
-
     if (_.isEmpty(result.data)) {
       res.status(404).send(notFound('A staff fee privilege record with the specified ID was not found.'));
     } else {
