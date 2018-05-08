@@ -1,5 +1,5 @@
 api:
-  name: staff-fee-privilege-api
+  name: staff-fee-privilege
   endpointUri: https://api.oregonstate.edu/v1
 
 server:
