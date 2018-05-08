@@ -1,4 +1,3 @@
-const basicAuth = require('express-basic-auth');
 const config = require('config');
 const express = require('express');
 const fs = require('fs');
@@ -8,10 +7,10 @@ const { getStaffFeePrivilegesByTerm, getStaffFeePrivilegesById } = require('./co
 const { getStaffFeePrivilegesBy } = require('./db/db');
 const {
   badRequest,
-  unauthorized,
   notFound,
   internalServerError,
 } = require('./errors/errors');
+const { authentication } = require('./middlewares/authentication');
 const { expressLogger } = require('./middlewares/logger');
 
 // Create HTTPS server
@@ -24,15 +23,9 @@ const httpsOptions = {
 };
 const httpsServer = https.createServer(httpsOptions, app);
 
-
+// Middlewares
 app.use(expressLogger);
-
-// Basic authentication middleware
-const { username, password } = config.authentication;
-app.use(basicAuth({
-  users: { [username]: password },
-  unauthorizedResponse: unauthorized,
-}));
+app.use(authentication);
 
 // Error handler
 const errorHandler = (res, err) => {
