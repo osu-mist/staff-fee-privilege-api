@@ -52,8 +52,8 @@ Run [ESLint](https://eslint.org/) to check the code:
 # Using npm
 $ npm run lint
 
-# Using gult
-$ gult lint
+# Using gulp
+$ gulp lint
 ```
 
 _Note: We are following [Airbnb's style](https://github.com/airbnb/javascript) as the JavaScript style guide_
@@ -66,6 +66,6 @@ Run unit tests:
 # Using npm
 $ npm test
 
-# Using gult
-$ gult test
+# Using gulp
+$ gulp test
 ```
