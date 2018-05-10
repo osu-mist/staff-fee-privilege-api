@@ -7,6 +7,7 @@ const dbConfig = config.get('database');
 oracledb.outFormat = oracledb.OBJECT;
 
 process.on('SIGINT', () => process.exit());
+const poolPromise = oracledb.createPool(dbConfig);
 
 // Sanitize raw data from database
 const sanitize = (row) => {
@@ -20,27 +21,15 @@ const getStaffFeePrivilegesBy = (filter, query) =>
   new Promise(async (resolve, reject) => {
     let connection;
     try {
-      oracledb.createPool(dbConfig, async (err, pool) => {
+      poolPromise.then(async (pool) => {
         connection = await pool.getConnection();
-        const result = await connection.execute(query, [filter]);
-        const { rows } = result;
-
-        _.forEach(rows, row => sanitize(row));
-
-        // Serialize data to JSON API
-        const jsonapi = StaffFeePrivilegeSerializer.serialize(rows);
+        const { rows } = await connection.execute(query, [filter]);
+        _.forEach(rows, row => sanitize(row)); // Sanitize each row
+        const jsonapi = StaffFeePrivilegeSerializer.serialize(rows); // Serialize data to JSON API
         resolve(jsonapi);
-      });
+      }).catch(err => console.error(err));
     } catch (err) {
       reject(err);
-    } finally {
-      if (connection) {
-        try {
-          await connection.close();
-        } catch (err) {
-          console.error(err);
-        }
-      }
     }
   });
 
