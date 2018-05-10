@@ -6,24 +6,26 @@ const _ = require('lodash');
 const JSONAPISerializer = require('jsonapi-serializer').Serializer;
 
 const apiConfig = config.get('api');
-
-// Read attributes from swagger and adjust them to match oracledb column names
 const swagger = yaml.safeLoad(fs.readFileSync('./swagger.yaml', 'utf8'));
-const keys = _.keys(swagger
-  .definitions.StaffFeePrivilegeRourceObject.properties.attributes.properties);
 
-_.forEach(keys, (key, index) => {
-  keys[index] = decamelize(key).toUpperCase();
-});
+const StaffFeePrivilegeSerializer = (rows) => {
+  const rourceObject = swagger.definitions.StaffFeePrivilegeRourceObject;
+  const type = rourceObject.properties.type.example;
+  const keys = _.keys(rourceObject.properties.attributes.properties);
 
-module.exports = new JSONAPISerializer(
-  'staffFeePrivileges',
-  {
+  // Adjust attribute keys to match oracledb column names
+  _.forEach(keys, (key, index) => {
+    keys[index] = decamelize(key).toUpperCase();
+  });
+
+  return new JSONAPISerializer(type, {
     attributes: keys,
     id: 'ID',
     keyForAttribute: 'camelCase',
     dataLinks: {
       self: row => `${apiConfig.endpointUri}/${apiConfig.name}/${row.ID}`,
     },
-  },
-);
+  }).serialize(rows);
+};
+
+module.exports = { StaffFeePrivilegeSerializer };

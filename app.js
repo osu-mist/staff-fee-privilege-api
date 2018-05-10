@@ -3,8 +3,7 @@ const express = require('express');
 const fs = require('fs');
 const https = require('https');
 const _ = require('lodash');
-const { getStaffFeePrivilegesByTerm, getStaffFeePrivilegesById } = require('./contrib/contrib');
-const { getStaffFeePrivilegesBy } = require('./db/db');
+const db = require('./db/db');
 const {
   badRequest,
   notFound,
@@ -37,7 +36,7 @@ app.get(`/${api}`, async (req, res) => {
     if (!term) {
       res.status(400).send(badRequest('Term code need to be provided.'));
     } else {
-      const result = await getStaffFeePrivilegesBy(term, getStaffFeePrivilegesByTerm);
+      const result = await db.getStaffFeePrivilegesByTerm(term);
       res.send(result);
     }
   } catch (err) {
@@ -49,7 +48,7 @@ app.get(`/${api}`, async (req, res) => {
 app.get(`/${api}/:id`, async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await getStaffFeePrivilegesBy(id, getStaffFeePrivilegesById);
+    const result = await db.getStaffFeePrivilegesById(id);
     if (_.isEmpty(result.data)) {
       res.status(404).send(notFound('A staff fee privilege record with the specified ID was not found.'));
     } else {

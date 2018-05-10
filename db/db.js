@@ -1,7 +1,8 @@
 const config = require('config');
 const _ = require('lodash');
 const oracledb = require('oracledb');
-const StaffFeePrivilegeSerializer = require('../serializers/staff-fee-privilege');
+const contrib = require('../contrib/contrib');
+const { StaffFeePrivilegeSerializer } = require('../serializers/jsonapi');
 
 const dbConfig = config.get('database');
 oracledb.outFormat = oracledb.OBJECT;
@@ -17,6 +18,7 @@ const sanitize = (row) => {
   return row;
 };
 
+// Generic getter function
 const getStaffFeePrivilegesBy = (filter, query) =>
   new Promise(async (resolve, reject) => {
     let connection;
@@ -25,7 +27,7 @@ const getStaffFeePrivilegesBy = (filter, query) =>
         connection = await pool.getConnection();
         const { rows } = await connection.execute(query, [filter]);
         _.forEach(rows, row => sanitize(row)); // Sanitize each row
-        const jsonapi = StaffFeePrivilegeSerializer.serialize(rows); // Serialize data to JSON API
+        const jsonapi = StaffFeePrivilegeSerializer(rows); // Serialize data to JSON API
         resolve(jsonapi);
       }).catch(err => console.error(err));
     } catch (err) {
@@ -33,4 +35,13 @@ const getStaffFeePrivilegesBy = (filter, query) =>
     }
   });
 
-module.exports = { getStaffFeePrivilegesBy, sanitize };
+const getStaffFeePrivilegesByTerm = term => getStaffFeePrivilegesBy(
+  term,
+  contrib.getStaffFeePrivilegesByTerm,
+);
+const getStaffFeePrivilegesById = id => getStaffFeePrivilegesBy(
+  id,
+  contrib.getStaffFeePrivilegesById,
+);
+
+module.exports = { getStaffFeePrivilegesByTerm, getStaffFeePrivilegesById, sanitize };

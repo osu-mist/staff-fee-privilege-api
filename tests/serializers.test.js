@@ -2,7 +2,7 @@ const camelCase = require('camelcase');
 const chai = require('chai');
 const chaiString = require('chai-string');
 const _ = require('lodash');
-const StaffFeePrivilegeSerializer = require('../serializers/staff-fee-privilege');
+const { StaffFeePrivilegeSerializer } = require('../serializers/jsonapi');
 
 const { assert } = chai;
 chai.use(chaiString);
@@ -28,7 +28,7 @@ describe('Test staff-fee-privillege serializer', () => {
     EMPLOYEE_FIRST_NAME: 'Francis',
     EMPLOYEE_INSTITUTION: 'Oregon State University',
   }];
-  const jsonapi = StaffFeePrivilegeSerializer.serialize(rows);
+  const jsonapi = StaffFeePrivilegeSerializer(rows);
 
   it('keys should be camelCase', (done) => {
     const newKeys = _.keys(jsonapi.data[0].attributes);
