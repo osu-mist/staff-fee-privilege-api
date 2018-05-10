@@ -4,7 +4,7 @@
   "description": "Report the people who used the staff fee privilege for each term",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "lint": "eslint .",
     "test": "mocha tests/** --exit"
   },
