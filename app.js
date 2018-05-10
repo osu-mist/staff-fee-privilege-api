@@ -30,6 +30,7 @@ const adminHttpsServer = https.createServer(httpsOptions, adminApp);
 app.use(stdoutlogger);
 app.use(rfsLogger);
 app.use(authentication);
+adminApp.use(authentication);
 adminApp.use('/healthcheck', require('express-healthcheck')());
 
 // GET /staff-fee-privilege
