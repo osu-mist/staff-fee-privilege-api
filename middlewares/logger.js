@@ -1,26 +1,25 @@
 const config = require('config');
-const log4js = require('log4js');
+const moment = require('moment');
+const morgan = require('morgan');
+const rfs = require('rotating-file-stream');
 
-const apiConfig = config.get('api');
 const loggerConfig = config.get('logger');
+const apiName = config.get('api').name;
 
-log4js.configure({
-  appenders: {
-    dateFile: {
-      type: 'dateFile',
-      filename: `${loggerConfig.logsDirectory}/${apiConfig.name}.log`,
-      pattern: `-${loggerConfig.pattern}`,
-      compress: true,
-    },
-    out: {
-      type: 'stdout',
-    },
-  },
-  categories: {
-    default: { appenders: ['dateFile', 'out'], level: loggerConfig.level },
-  },
+const logGenerator = () => {
+  const pattern = moment().utc().format(`${loggerConfig.pattern}`);
+  return `${apiName}-${pattern}.log`;
+};
+
+const LogStream = rfs(logGenerator, {
+  interval: loggerConfig.interval,
+  size: loggerConfig.size,
+  path: loggerConfig.path,
+  compress: loggerConfig.compress,
+  maxFiles: loggerConfig.maxFiles,
 });
-const logger = log4js.getLogger();
-const expressLogger = log4js.connectLogger(logger);
 
-module.exports = { expressLogger };
+const stdoutlogger = morgan('dev');
+const rfsLogger = morgan('combined', { stream: LogStream });
+
+module.exports = { stdoutlogger, rfsLogger };

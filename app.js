@@ -10,7 +10,7 @@ const {
   errorHandler,
 } = require('./errors/errors');
 const { authentication } = require('./middlewares/authentication');
-const { expressLogger } = require('./middlewares/logger');
+const { stdoutlogger, rfsLogger } = require('./middlewares/logger');
 
 const api = config.get('api').name;
 
@@ -25,7 +25,8 @@ const httpsOptions = {
 const httpsServer = https.createServer(httpsOptions, app);
 
 // Middlewares
-app.use(expressLogger);
+app.use(stdoutlogger);
+app.use(rfsLogger);
 app.use(authentication);
 app.use(`/${api}/healthcheck`, require('express-healthcheck')());
 
