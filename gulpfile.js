@@ -4,7 +4,6 @@ const mocha = require('gulp-mocha');
 const nodemon = require('gulp-nodemon');
 const gulpSequence = require('gulp-sequence');
 
-
 gulp.task('lint', () =>
   gulp.src(['**/*.js', '!node_modules/**'])
     .pipe(eslint())
