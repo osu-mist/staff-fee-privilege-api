@@ -14,21 +14,23 @@ const { stdoutlogger, rfsLogger } = require('./middlewares/logger');
 
 const api = config.get('api').name;
 
-// Create HTTPS server
+// Create HTTPS servers
 const serverConfig = config.get('server');
 const app = express();
+const adminApp = express();
 const httpsOptions = {
   key: fs.readFileSync(serverConfig.keyPath),
   cert: fs.readFileSync(serverConfig.certPath),
   secureProtocol: serverConfig.secureProtocol,
 };
 const httpsServer = https.createServer(httpsOptions, app);
+const adminHttpsServer = https.createServer(httpsOptions, adminApp);
 
 // Middlewares
 app.use(stdoutlogger);
 app.use(rfsLogger);
 app.use(authentication);
-app.use(`/${api}/healthcheck`, require('express-healthcheck')());
+adminApp.use('/healthcheck', require('express-healthcheck')());
 
 // GET /staff-fee-privilege
 app.get(`/${api}`, async (req, res) => {
@@ -60,7 +62,8 @@ app.get(`/${api}/:id`, async (req, res) => {
   }
 });
 
-// Start HTTPS server
+// Start HTTPS servers
 httpsServer.listen(serverConfig.port);
+adminHttpsServer.listen(serverConfig.adminPort);
 
 module.exports = { app };
