@@ -38,7 +38,8 @@ $ yarn
 
 2. Run the application:
 
-  ```
+  ```shell
+  # Run linting and testing tasks before start the app
   $ gulp run
   ```
 
