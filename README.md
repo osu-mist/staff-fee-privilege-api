@@ -41,6 +41,9 @@ $ yarn
   ```shell
   # Run linting and testing tasks before start the app
   $ gulp run
+
+  # Run the app without running linting and testing tasks (only for development)
+  $ nodemon app.js
   ```
 
 ## Running the tests
