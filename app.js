@@ -4,11 +4,7 @@ const fs = require('fs');
 const https = require('https');
 const _ = require('lodash');
 const db = require('./db/db');
-const {
-  badRequest,
-  notFound,
-  errorHandler,
-} = require('./errors/errors');
+const { badRequest, notFound, errorHandler } = require('./errors/errors');
 const { authentication } = require('./middlewares/authentication');
 const { stdoutlogger, rfsLogger } = require('./middlewares/logger');
 
