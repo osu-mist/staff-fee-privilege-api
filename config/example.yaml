@@ -4,6 +4,7 @@ api:
 
 server:
   port: 8080
+  adminPort: 8081
   keyPath: /path/to/key.pem
   certPath: /path/to/server.crt
   secureProtocol: TLSv1_2_method
@@ -20,6 +21,9 @@ database:
   poolMax: 30
 
 logger:
-  logsDirectory: logs
-  pattern: yyyy-MM-dd
-  level: all
+  interval: 1d
+  size: 10M
+  compress: true
+  maxFiles: 5
+  path: logs
+  pattern: YYYY-MM-DD
