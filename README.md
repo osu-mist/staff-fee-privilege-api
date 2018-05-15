@@ -2,7 +2,6 @@
 
 Report the people who used the staff fee privilege for each term.
 
-
 ## Getting Started
 
 ### Prerequisites
