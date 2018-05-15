@@ -78,13 +78,15 @@ $ gulp test
 
 [Dockerfile](Dockerfile) is also provided. To run the app in a container, just simply install [Docker](https://www.docker.com/) first, then:
 
-1. Build the docker image:
+1. Download an [Oracle Instant Client 12.2 Basic Light zip (64 bits)](http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html), and place in `./bin` folder.
+
+2. Build the docker image:
 
   ```shell
   $ docker build -t staff-fee-privilege-api .
   ```
 
-2. Run the app in a container:
+3. Run the app in a container:
 
   ```shell
   $ docker run -d \
