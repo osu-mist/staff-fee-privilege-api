@@ -8,8 +8,6 @@ const { badRequest, notFound, errorHandler } = require('./errors/errors');
 const { authentication } = require('./middlewares/authentication');
 const { stdoutlogger, rfsLogger } = require('./middlewares/logger');
 
-const api = config.get('api').name;
-
 // Create HTTPS servers
 const serverConfig = config.get('server');
 const app = express();
@@ -30,7 +28,7 @@ adminApp.use(authentication);
 adminApp.use('/healthcheck', require('express-healthcheck')());
 
 // GET /staff-fee-privilege
-app.get(`/${api}`, async (req, res) => {
+app.get('/staff-fee-privilege', async (req, res) => {
   try {
     const { term } = req.query;
     if (!term) {
@@ -45,7 +43,7 @@ app.get(`/${api}`, async (req, res) => {
 });
 
 // GET /staff-fee-privilege/:id
-app.get(`/${api}/:id`, async (req, res) => {
+app.get('/staff-fee-privilege/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const result = await db.getStaffFeePrivilegesById(id);
