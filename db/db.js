@@ -10,14 +10,6 @@ oracledb.outFormat = oracledb.OBJECT;
 const dbConfig = config.get('database');
 const poolPromise = oracledb.createPool(dbConfig);
 
-// Sanitize raw data from database
-const sanitize = (row) => {
-  row.CAMPUS = row.CAMPUS.trim();
-  row.CURRENT_ENROLLED = row.CURRENT_ENROLLED === 'Y';
-  row.CURRENT_REGISTERED = row.CURRENT_REGISTERED === 'Y';
-  return row;
-};
-
 // Get connection from created pool
 const getConnection = () => new Promise(async (resolve, reject) => {
   poolPromise.then(async (pool) => {
@@ -25,6 +17,14 @@ const getConnection = () => new Promise(async (resolve, reject) => {
     resolve(connection);
   }).catch(err => reject(err));
 });
+
+// Sanitize raw data from database
+const sanitize = (row) => {
+  row.CAMPUS = row.CAMPUS.trim();
+  row.CURRENT_ENROLLED = row.CURRENT_ENROLLED === 'Y';
+  row.CURRENT_REGISTERED = row.CURRENT_REGISTERED === 'Y';
+  return row;
+};
 
 // Get StaffFeePrivileges by query
 const getStaffFeePrivilegesByQuery = query =>
