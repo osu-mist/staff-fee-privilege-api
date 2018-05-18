@@ -2,7 +2,6 @@ const config = require('config');
 const express = require('express');
 const fs = require('fs');
 const https = require('https');
-const _ = require('lodash');
 const db = require('./db/db');
 const { badRequest, notFound, errorHandler } = require('./errors/errors');
 const { authentication } = require('./middlewares/authentication');
@@ -46,11 +45,16 @@ app.get('/staff-fee-privilege', async (req, res) => {
 app.get('/staff-fee-privilege/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await db.getStaffFeePrivilegesById(id);
-    if (_.isEmpty(result.data)) {
-      res.status(404).send(notFound('A staff fee privilege record with the specified ID was not found.'));
+    const [osuId, term] = id.split('-');
+    if (!osuId || !term) {
+      res.status(400).send(badRequest('ID format is not correct.'));
     } else {
-      res.send(result);
+      const result = await db.getStaffFeePrivilegesById({ osuId, term });
+      if (!result) {
+        res.status(404).send(notFound('A staff fee privilege record with the specified ID was not found.'));
+      } else {
+        res.send(result);
+      }
     }
   } catch (err) {
     errorHandler(res, err);
