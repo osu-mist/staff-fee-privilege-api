@@ -47,12 +47,15 @@ const getStaffFeePrivilegesById = query =>
           contrib.getStaffFeePrivilegesByQuery(query),
           query,
         );
-        if (_.isEmpty(rows[0])) {
+        if (_.isEmpty(rows)) {
+          // should return 404 if nothing found
           resolve(undefined);
         } else if (rows.length > 1) {
+          // should return 500 if get multiple results
           reject(new Error('Expect a single object but got multiple results.'));
         } else {
-          const jsonapi = StaffFeePrivilegeSerializer(sanitize(rows[0]));
+          const [row] = rows;
+          const jsonapi = StaffFeePrivilegeSerializer(sanitize(row));
           resolve(jsonapi);
         }
       }).catch(err => console.error(err));
