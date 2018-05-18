@@ -18,22 +18,25 @@ const sanitize = (row) => {
   return row;
 };
 
+// Get connection from created pool
+const getConnection = () => new Promise(async (resolve, reject) => {
+  poolPromise.then(async (pool) => {
+    const connection = await pool.getConnection();
+    resolve(connection);
+  }).catch(err => reject(err));
+});
+
 const getStaffFeePrivilegesByQuery = query =>
   new Promise(async (resolve, reject) => {
-    let connection;
+    const connection = await getConnection();
     try {
-      poolPromise.then(async (pool) => {
-        connection = await pool.getConnection();
-        const { rows } = await connection.execute(
-          contrib.getStaffFeePrivilegesByQuery(query),
-          query,
-        );
-        // Sanitize each row
-        _.forEach(rows, row => sanitize(row));
-        // Serialize data to JSON API
-        const jsonapi = StaffFeePrivilegeSerializer(rows);
-        resolve(jsonapi);
-      }).catch(err => console.error(err));
+      const { rows } = await connection.execute(
+        contrib.getStaffFeePrivilegesByQuery(query),
+        query,
+      );
+      _.forEach(rows, row => sanitize(row));
+      const jsonapi = StaffFeePrivilegeSerializer(rows);
+      resolve(jsonapi);
     } catch (err) {
       reject(err);
     }
@@ -41,26 +44,23 @@ const getStaffFeePrivilegesByQuery = query =>
 
 const getStaffFeePrivilegesById = query =>
   new Promise(async (resolve, reject) => {
-    let connection;
+    const connection = await getConnection();
     try {
-      poolPromise.then(async (pool) => {
-        connection = await pool.getConnection();
-        const { rows } = await connection.execute(
-          contrib.getStaffFeePrivilegesByQuery(query),
-          query,
-        );
-        if (_.isEmpty(rows)) {
-          // Should return 404 if nothing found
-          resolve(undefined);
-        } else if (rows.length > 1) {
-          // Should return 500 if get multiple results
-          reject(new Error('Expect a single object but got multiple results.'));
-        } else {
-          const [row] = rows;
-          const jsonapi = StaffFeePrivilegeSerializer(sanitize(row));
-          resolve(jsonapi);
-        }
-      }).catch(err => console.error(err));
+      const { rows } = await connection.execute(
+        contrib.getStaffFeePrivilegesByQuery(query),
+        query,
+      );
+      if (_.isEmpty(rows)) {
+        // Should return 404 if nothing found
+        resolve(undefined);
+      } else if (rows.length > 1) {
+        // Should return 500 if get multiple results
+        reject(new Error('Expect a single object but got multiple results.'));
+      } else {
+        const [row] = rows;
+        const jsonapi = StaffFeePrivilegeSerializer(sanitize(row));
+        resolve(jsonapi);
+      }
     } catch (err) {
       reject(err);
     }
