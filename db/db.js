@@ -26,7 +26,7 @@ const getStaffFeePrivilegesByParams = params =>
       poolPromise.then(async (pool) => {
         connection = await pool.getConnection();
         const query = contrib.getStaffFeePrivilegesByParams(params);
-        const { rows } = await connection.execute(query, _.values(params));
+        const { rows } = await connection.execute(query, params);
         _.forEach(rows, row => sanitize(row)); // Sanitize each row
         const jsonapi = StaffFeePrivilegeSerializer(rows); // Serialize data to JSON API
         resolve(jsonapi);

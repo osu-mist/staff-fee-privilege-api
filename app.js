@@ -31,7 +31,7 @@ adminApp.use('/healthcheck', require('express-healthcheck')());
 app.get('/staff-fee-privilege', async (req, res) => {
   try {
     const params = req.query;
-    if (!params) {
+    if (!params.term && !params.osuId) {
       res.status(400).send(badRequest('Term code or OSU ID need to be provided.'));
     } else {
       const result = await db.getStaffFeePrivilegesByParams(params);
