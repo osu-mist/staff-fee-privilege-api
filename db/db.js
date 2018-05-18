@@ -4,10 +4,10 @@ const oracledb = require('oracledb');
 const contrib = require('../contrib/contrib');
 const { StaffFeePrivilegeSerializer } = require('../serializers/jsonapi');
 
-const dbConfig = config.get('database');
-oracledb.outFormat = oracledb.OBJECT;
-
 process.on('SIGINT', () => process.exit());
+
+oracledb.outFormat = oracledb.OBJECT;
+const dbConfig = config.get('database');
 const poolPromise = oracledb.createPool(dbConfig);
 
 // Sanitize raw data from database
@@ -26,6 +26,7 @@ const getConnection = () => new Promise(async (resolve, reject) => {
   }).catch(err => reject(err));
 });
 
+// Get StaffFeePrivileges by query
 const getStaffFeePrivilegesByQuery = query =>
   new Promise(async (resolve, reject) => {
     const connection = await getConnection();
@@ -42,6 +43,7 @@ const getStaffFeePrivilegesByQuery = query =>
     }
   });
 
+// Get StaffFeePrivileges by ID
 const getStaffFeePrivilegesById = query =>
   new Promise(async (resolve, reject) => {
     const connection = await getConnection();
