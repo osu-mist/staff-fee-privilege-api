@@ -28,8 +28,10 @@ const getStaffFeePrivilegesByQuery = query =>
           contrib.getStaffFeePrivilegesByQuery(query),
           query,
         );
-        _.forEach(rows, row => sanitize(row)); // Sanitize each row
-        const jsonapi = StaffFeePrivilegeSerializer(rows); // Serialize data to JSON API
+        // Sanitize each row
+        _.forEach(rows, row => sanitize(row));
+        // Serialize data to JSON API
+        const jsonapi = StaffFeePrivilegeSerializer(rows);
         resolve(jsonapi);
       }).catch(err => console.error(err));
     } catch (err) {
@@ -48,10 +50,10 @@ const getStaffFeePrivilegesById = query =>
           query,
         );
         if (_.isEmpty(rows)) {
-          // should return 404 if nothing found
+          // Should return 404 if nothing found
           resolve(undefined);
         } else if (rows.length > 1) {
-          // should return 500 if get multiple results
+          // Should return 500 if get multiple results
           reject(new Error('Expect a single object but got multiple results.'));
         } else {
           const [row] = rows;
