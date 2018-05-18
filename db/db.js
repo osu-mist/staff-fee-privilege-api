@@ -19,13 +19,14 @@ const sanitize = (row) => {
 };
 
 // Generic getter function
-const getStaffFeePrivilegesBy = (filter, query) =>
+const getStaffFeePrivilegesByParams = params =>
   new Promise(async (resolve, reject) => {
     let connection;
     try {
       poolPromise.then(async (pool) => {
         connection = await pool.getConnection();
-        const { rows } = await connection.execute(query, [filter]);
+        const query = contrib.getStaffFeePrivilegesByParams(params);
+        const { rows } = await connection.execute(query, _.values(params));
         _.forEach(rows, row => sanitize(row)); // Sanitize each row
         const jsonapi = StaffFeePrivilegeSerializer(rows); // Serialize data to JSON API
         resolve(jsonapi);
@@ -35,13 +36,4 @@ const getStaffFeePrivilegesBy = (filter, query) =>
     }
   });
 
-const getStaffFeePrivilegesByTerm = term => getStaffFeePrivilegesBy(
-  term,
-  contrib.getStaffFeePrivilegesByTerm,
-);
-const getStaffFeePrivilegesById = id => getStaffFeePrivilegesBy(
-  id,
-  contrib.getStaffFeePrivilegesById,
-);
-
-module.exports = { getStaffFeePrivilegesByTerm, getStaffFeePrivilegesById, sanitize };
+module.exports = { getStaffFeePrivilegesByParams, sanitize };
