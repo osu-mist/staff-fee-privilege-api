@@ -50,7 +50,7 @@ const getStaffFeePrivilegesById = query =>
         if (_.isEmpty(rows[0])) {
           resolve(undefined);
         } else if (rows.length > 1) {
-          reject();
+          reject(new Error('Expect a single object but got multiple results.'));
         } else {
           const jsonapi = StaffFeePrivilegeSerializer(sanitize(rows[0]));
           resolve(jsonapi);
