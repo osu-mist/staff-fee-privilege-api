@@ -46,15 +46,11 @@ app.get('/staff-fee-privilege/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const [osuId, term] = id.split('-');
-    if (!osuId || !term) {
-      res.status(400).send(badRequest('ID format is not correct.'));
+    const result = await db.getStaffFeePrivilegesById({ osuId, term });
+    if (!result) {
+      res.status(404).send(notFound('A staff fee privilege record with the specified ID was not found.'));
     } else {
-      const result = await db.getStaffFeePrivilegesById({ osuId, term });
-      if (!result) {
-        res.status(404).send(notFound('A staff fee privilege record with the specified ID was not found.'));
-      } else {
-        res.send(result);
-      }
+      res.send(result);
     }
   } catch (err) {
     errorHandler(res, err);
