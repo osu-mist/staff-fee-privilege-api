@@ -57,10 +57,6 @@ paths:
           description: 'Successful response'
           schema:
             $ref: '#/definitions/StaffFeePrivilegeResultObject'
-        '400':
-          description: 'Bad request'
-          schema:
-            $ref: '#/definitions/Error'
         '404':
           description: 'A staff fee privilege record with the specified ID was not found.'
           schema:
