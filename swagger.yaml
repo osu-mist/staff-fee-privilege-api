@@ -48,7 +48,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: 'Concatenate OSU ID and a 6 digits term code with a dash delimiter (e.g., 931234567-201802)'
+          description: 'Concatenate OSU ID and a 6 digit term code with a dash delimiter (e.g., 931234567-201802)'
           required: true
           type: string
         - $ref: '#/parameters/pretty'
@@ -91,7 +91,7 @@ definitions:
     properties:
       id:
         type: string
-        description: 'A unique ID concatenated with OSU ID, a dash delimiter and a 6 digits term code'
+        description: 'A unique ID concatenated with OSU ID, a dash delimiter and a 6 digit term code'
         example: '931234567-201803'
       type:
         type: string
