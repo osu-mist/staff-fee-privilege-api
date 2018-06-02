@@ -1,0 +1,29 @@
+api:
+  name: staff-fee-privilege
+  endpointUri: https://api.oregonstate.edu/v1
+
+server:
+  port: 8080
+  adminPort: 8081
+  keyPath: /path/to/key.pem
+  certPath: /path/to/server.crt
+  secureProtocol: TLSv1_2_method
+
+authentication:
+  username: username
+  password: password
+
+database:
+  connectString: localhost/XE
+  user: hr
+  password: welcome
+  poolMin: 3
+  poolMax: 30
+
+logger:
+  interval: 1d
+  size: 10M
+  compress: true
+  maxFiles: 5
+  path: logs
+  pattern: YYYY-MM-DD

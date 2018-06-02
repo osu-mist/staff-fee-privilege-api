@@ -1,0 +1,54 @@
+{
+  "name": "staff-fee-privilege-api",
+  "version": "1.0.0",
+  "description": "Report the people who used the staff fee privilege for each term",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "lint": "eslint .",
+    "test": "mocha tests/** --exit"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osu-mist/staff-fee-privilege-api.git"
+  },
+  "author": "osu-mist",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/osu-mist/staff-fee-privilege-api/issues"
+  },
+  "homepage": "https://github.com/osu-mist/staff-fee-privilege-api#readme",
+  "dependencies": {
+    "camelcase": "^5.0.0",
+    "config": "^1.30.0",
+    "decamelize": "^2.0.0",
+    "express": "^4.16.3",
+    "express-basic-auth": "^1.1.5",
+    "express-healthcheck": "^0.1.0",
+    "js-yaml": "^3.11.0",
+    "jsonapi-serializer": "^3.5.6",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.1",
+    "morgan": "^1.9.0",
+    "oracledb": "^2.2.0",
+    "rotating-file-stream": "^1.3.6"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-string": "^1.4.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^4.0.2",
+    "gulp-mocha": "^5.0.0",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-sequence": "^1.0.0",
+    "mocha": "^5.1.1",
+    "nodemon": "^1.17.4",
+    "pre-commit": "^1.2.2"
+  }
+}

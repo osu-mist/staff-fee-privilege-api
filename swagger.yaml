@@ -1,29 +1,32 @@
 swagger: '2.0'
 info:
-  title: Staff Fee Privilege API
-  description: Report the people who used the staff fee privilege for each term
+  title: 'Staff Fee Privilege API'
+  description: 'Report the people who used the staff fee privilege for each term'
   version: '1.0.0'
   license:
-    name: GNU Affero General Public License Version 3
+    name: 'GNU Affero General Public License Version 3'
     url: 'http://www.gnu.org/licenses/agpl-3.0.en.html'
 externalDocs:
-  description: GitHub Repository
+  description: 'GitHub Repository'
   url: 'https://github.com/osu-mist/staff-fee-privilege-api'
-host: api.oregonstate.edu
+host: 'api.oregonstate.edu'
 schemes:
   - https
 basePath: /v1
 produces:
   - application/json
 paths:
-  /staff-fee-privilege:
+  '/staff-fee-privilege':
     get:
       description: 'Get all students who use staff fee privilege by term'
       parameters:
         - in: query
           name: term
-          required: true
-          description: 'Term code. Example: 201802'
+          description: 'Term code (e.g., 201803)'
+          type: string
+        - in: query
+          name: osuId
+          description: 'OSU ID'
           type: string
         - $ref: '#/parameters/pretty'
       responses:
@@ -39,13 +42,13 @@ paths:
           description: 'Internal Server Error'
           schema:
             $ref: '#/definitions/Error'
-  /staff-fee-privilege/{osuID}:
+  '/staff-fee-privilege/{id}':
     get:
-      description: 'Get student who uses staff fee privilege by OSU ID'
+      description: 'Get student who uses staff fee privilege by unique ID'
       parameters:
-        - name: osuID
+        - name: id
           in: path
-          description: '9 digit OSU ID of student who benefitting from the staff fee privilege'
+          description: 'Concatenate OSU ID and a 6 digit term code with a dash delimiter (e.g., 931234567-201802)'
           required: true
           type: string
         - $ref: '#/parameters/pretty'
@@ -55,7 +58,7 @@ paths:
           schema:
             $ref: '#/definitions/StaffFeePrivilegeResultObject'
         '404':
-          description: 'Records not found'
+          description: 'A staff fee privilege record with the specified ID was not found.'
           schema:
             $ref: '#/definitions/Error'
         '500':
@@ -84,11 +87,11 @@ definitions:
     properties:
       id:
         type: string
-        description: '9 digit OSU ID of student who benefitting from the staff fee privilege'
-        example: '930000000'
+        description: 'A unique ID concatenated with OSU ID, a dash delimiter and a 6 digit term code'
+        example: '931234567-201803'
       type:
         type: string
-        example: 'staff-fee-privilege'
+        example: 'staffFeePrivileges'
       links:
         $ref: '#/definitions/SelfLink'
       attributes:
@@ -139,7 +142,7 @@ definitions:
           totalCredits:
             type: number
             format: integer
-            description: 'Total credits'
+            description: ' Total credits'
           receivableAccount:
             type: string
             description: 'Type of transaction in accounts receivable'
@@ -150,9 +153,6 @@ definitions:
           employeeFirstName:
             type: string
             description: 'First name of employee giving waiver to student'
-          employeeMiddleName:
-            type: string
-            description: 'Middle name of employee giving waiver to student'
           employeeInstitution:
             type: string
             description: 'Institution of employment of employee'
@@ -166,17 +166,11 @@ definitions:
   Error:
     properties:
       status:
-        type: integer
-        description: 'HTTP status code'
-      developerMessage:
         type: string
-        description: 'An error string aimed at developers'
-      userMesage:
+        description: 'The HTTP status code applicable to this problem, expressed as a string value'
+      title:
         type: string
-        description: 'An error string aimed at end users'
-      code:
-        type: integer
-        description: 'Error code'
-      details:
+        description: 'A short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization'
+      detail:
         type: string
-        description: 'A link to further information about the error'
+        description: 'A human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized'
