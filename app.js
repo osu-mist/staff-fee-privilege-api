@@ -2,13 +2,10 @@ const config = require('config');
 const express = require('express');
 const fs = require('fs');
 const https = require('https');
-const _ = require('lodash');
 const db = require('./db/db');
 const { badRequest, notFound, errorHandler } = require('./errors/errors');
 const { authentication } = require('./middlewares/authentication');
 const { stdoutlogger, rfsLogger } = require('./middlewares/logger');
-
-const api = config.get('api').name;
 
 // Create HTTPS servers
 const serverConfig = config.get('server');
@@ -30,13 +27,13 @@ adminApp.use(authentication);
 adminApp.use('/healthcheck', require('express-healthcheck')());
 
 // GET /staff-fee-privilege
-app.get(`/${api}`, async (req, res) => {
+app.get('/staff-fee-privilege', async (req, res) => {
   try {
-    const { term } = req.query;
-    if (!term) {
-      res.status(400).send(badRequest('Term code need to be provided.'));
+    const { query } = req;
+    if (!query.term && !query.osuId) {
+      res.status(400).send(badRequest('Term code or OSU ID need to be provided.'));
     } else {
-      const result = await db.getStaffFeePrivilegesByTerm(term);
+      const result = await db.getStaffFeePrivilegesByQuery(query);
       res.send(result);
     }
   } catch (err) {
@@ -45,11 +42,12 @@ app.get(`/${api}`, async (req, res) => {
 });
 
 // GET /staff-fee-privilege/:id
-app.get(`/${api}/:id`, async (req, res) => {
+app.get('/staff-fee-privilege/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await db.getStaffFeePrivilegesById(id);
-    if (_.isEmpty(result.data)) {
+    const [osuId, term] = id.split('-');
+    const result = await db.getStaffFeePrivilegesById({ osuId, term });
+    if (!result) {
       res.status(404).send(notFound('A staff fee privilege record with the specified ID was not found.'));
     } else {
       res.send(result);
