@@ -8,14 +8,7 @@ const { StaffFeePrivilegeSerializer } = require('../serializers/jsonapi');
 process.on('SIGINT', () => process.exit());
 
 oracledb.outFormat = oracledb.OBJECT;
-const database = config.get('database');
-const dbConfig = {
-  connectString: process.env.DBURL || database.connectString,
-  user: process.env.DBUSER || database.user,
-  password: process.env.DBPASSWD || database.password,
-  poolMin: database.poolMin,
-  poolMax: database.poolMax,
-};
+const dbConfig = config.get('database');
 const poolPromise = oracledb.createPool(dbConfig);
 
 // Get connection from created pool

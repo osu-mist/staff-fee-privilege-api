@@ -59,7 +59,7 @@ app.get('/staff-fee-privilege/:id', async (req, res) => {
 });
 
 // Start HTTPS servers
-httpsServer.listen(process.env.PORT || serverConfig.port);
-adminHttpsServer.listen(process.env.ADMIN_PORT || serverConfig.adminPort);
+httpsServer.listen(serverConfig.port);
+adminHttpsServer.listen(serverConfig.adminPort);
 
 module.exports = { app };

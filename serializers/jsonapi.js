@@ -24,7 +24,7 @@ const StaffFeePrivilegeSerializer = (rows) => {
     id: 'ID',
     keyForAttribute: 'camelCase',
     dataLinks: {
-      self: row => `${process.env.ENDPOINTURI || apiConfig.endpointUri}/${apiConfig.name}/${row.ID}`,
+      self: row => `${apiConfig.endpointUri}/${apiConfig.name}/${row.ID}`,
     },
   }).serialize(rows);
 };

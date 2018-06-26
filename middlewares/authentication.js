@@ -5,7 +5,7 @@ const { unauthorized } = require('../errors/errors');
 
 const { username, password } = config.authentication;
 const authentication = basicAuth({
-  users: { [process.env.USER || username]: process.env.PASSWD || password },
+  users: { [username]: password },
   unauthorizedResponse: unauthorized,
 });
 
