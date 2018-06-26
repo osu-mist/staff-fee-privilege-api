@@ -1,3 +1,4 @@
+require('dotenv').config();
 const config = require('config');
 const decamelize = require('decamelize');
 const fs = require('fs');
@@ -23,7 +24,7 @@ const StaffFeePrivilegeSerializer = (rows) => {
     id: 'ID',
     keyForAttribute: 'camelCase',
     dataLinks: {
-      self: row => `${apiConfig.endpointUri}/${apiConfig.name}/${row.ID}`,
+      self: row => `${process.env.ENDPOINTURI || apiConfig.endpointUri}/${apiConfig.name}/${row.ID}`,
     },
   }).serialize(rows);
 };

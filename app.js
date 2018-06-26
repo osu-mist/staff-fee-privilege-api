@@ -1,3 +1,4 @@
+require('dotenv').config();
 const config = require('config');
 const express = require('express');
 const fs = require('fs');
@@ -58,7 +59,7 @@ app.get('/staff-fee-privilege/:id', async (req, res) => {
 });
 
 // Start HTTPS servers
-httpsServer.listen(serverConfig.port);
-adminHttpsServer.listen(serverConfig.adminPort);
+httpsServer.listen(process.env.PORT || serverConfig.port);
+adminHttpsServer.listen(process.env.ADMIN_PORT || serverConfig.adminPort);
 
 module.exports = { app };
