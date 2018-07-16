@@ -18,5 +18,4 @@ RUN cd /opt/oracle/instantclient \
 RUN echo /opt/oracle/instantclient > /etc/ld.so.conf.d/oracle-instantclient.conf \
  && ldconfig
 
-USER nobody:nogroup
 CMD ["./node_modules/.bin/gulp", "run"]
