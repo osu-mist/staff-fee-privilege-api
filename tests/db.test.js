@@ -22,6 +22,7 @@ describe('Test sanitize', () => {
   it('should return correct data type', (done) => {
     assert.isBoolean(sanitizedRow.CURRENT_ENROLLED);
     assert.isBoolean(sanitizedRow.CURRENT_REGISTERED);
+    assert.isBoolean('Failing test');
     done();
   });
 });
