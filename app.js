@@ -8,19 +8,14 @@ const { badRequest, notFound, errorHandler } = require('./errors/errors');
 const { authentication } = require('./middlewares/authentication');
 const { stdoutlogger, rfsLogger } = require('./middlewares/logger');
 
-// Create HTTPS servers
+// Create Express application
 const serverConfig = config.get('server');
 const app = express();
+const router = express.Router();
 const adminApp = express();
-const httpsOptions = {
-  key: fs.readFileSync(serverConfig.keyPath),
-  cert: fs.readFileSync(serverConfig.certPath),
-  secureProtocol: serverConfig.secureProtocol,
-};
-const httpsServer = https.createServer(httpsOptions, app);
-const adminHttpsServer = https.createServer(httpsOptions, adminApp);
 
 // Middlewares
+app.use(serverConfig.basePath, router);
 app.use(stdoutlogger);
 app.use(rfsLogger);
 app.use(authentication);
@@ -28,7 +23,7 @@ adminApp.use(authentication);
 adminApp.use('/healthcheck', require('express-healthcheck')());
 
 // GET /staff-fee-privilege
-app.get('/staff-fee-privilege', async (req, res) => {
+router.get('/staff-fee-privilege', async (req, res) => {
   try {
     const { query } = req;
     if (!query.term && !query.osuId) {
@@ -43,7 +38,7 @@ app.get('/staff-fee-privilege', async (req, res) => {
 });
 
 // GET /staff-fee-privilege/:id
-app.get('/staff-fee-privilege/:id', async (req, res) => {
+router.get('/staff-fee-privilege/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const [osuId, term] = id.split('-');
@@ -58,7 +53,14 @@ app.get('/staff-fee-privilege/:id', async (req, res) => {
   }
 });
 
-// Start HTTPS servers
+// Create and start HTTPS servers
+const httpsOptions = {
+  key: fs.readFileSync(serverConfig.keyPath),
+  cert: fs.readFileSync(serverConfig.certPath),
+  secureProtocol: serverConfig.secureProtocol,
+};
+const httpsServer = https.createServer(httpsOptions, app);
+const adminHttpsServer = https.createServer(httpsOptions, adminApp);
 httpsServer.listen(serverConfig.port);
 adminHttpsServer.listen(serverConfig.adminPort);
 

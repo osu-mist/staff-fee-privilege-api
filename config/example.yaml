@@ -3,6 +3,7 @@ api:
   endpointUri: https://api.oregonstate.edu/v1
 
 server:
+  basePath: /api/v1
   port: 8080
   adminPort: 8081
   keyPath: /path/to/key.pem
