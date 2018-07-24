@@ -11,19 +11,22 @@ const { stdoutlogger, rfsLogger } = require('./middlewares/logger');
 // Create Express application
 const serverConfig = config.get('server');
 const app = express();
-const router = express.Router();
+const appRouter = express.Router();
 const adminApp = express();
+const adminAppRouter = express.Router();
 
 // Middlewares
-app.use(serverConfig.basePath, router);
-app.use(stdoutlogger);
-app.use(rfsLogger);
-app.use(authentication);
-adminApp.use(authentication);
-adminApp.use('/healthcheck', require('express-healthcheck')());
+app.use(serverConfig.basePath, appRouter);
+appRouter.use(stdoutlogger);
+appRouter.use(rfsLogger);
+appRouter.use(authentication);
+
+adminApp.use(serverConfig.basePath, adminAppRouter);
+adminAppRouter.use(authentication);
+adminAppRouter.use('/healthcheck', require('express-healthcheck')());
 
 // GET /staff-fee-privilege
-router.get('/staff-fee-privilege', async (req, res) => {
+appRouter.get('/staff-fee-privilege', async (req, res) => {
   try {
     const { query } = req;
     if (!query.term && !query.osuId) {
@@ -38,7 +41,7 @@ router.get('/staff-fee-privilege', async (req, res) => {
 });
 
 // GET /staff-fee-privilege/:id
-router.get('/staff-fee-privilege/:id', async (req, res) => {
+appRouter.get('/staff-fee-privilege/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const [osuId, term] = id.split('-');
