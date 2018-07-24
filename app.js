@@ -2,7 +2,9 @@ require('dotenv').config();
 const config = require('config');
 const express = require('express');
 const fs = require('fs');
+const git = require('simple-git/promise');
 const https = require('https');
+const moment = require('moment');
 const db = require('./db/db');
 const { badRequest, notFound, errorHandler } = require('./errors/errors');
 const { authentication } = require('./middlewares/authentication');
@@ -24,6 +26,24 @@ appRouter.use(authentication);
 adminApp.use(serverConfig.basePath, adminAppRouter);
 adminAppRouter.use(authentication);
 adminAppRouter.use('/healthcheck', require('express-healthcheck')());
+
+// GET /
+appRouter.get('/', async (req, res) => {
+  try {
+    const commit = await git().revparse(['--short', 'HEAD']);
+    const now = moment();
+    const info = {
+      name: `${config.get('api').name}-api`,
+      time: now.format('YYYY-MM-DD HH:mm:ssZZ'),
+      unixTime: now.unix(),
+      commit: commit.trim(),
+      documentation: 'swagger.yaml',
+    };
+    res.send(info);
+  } catch (err) {
+    errorHandler(res, err);
+  }
+});
 
 // GET /staff-fee-privilege
 appRouter.get('/staff-fee-privilege', async (req, res) => {
