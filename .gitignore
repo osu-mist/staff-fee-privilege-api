@@ -89,6 +89,7 @@ typings/
 
 # API
 config/*.yaml
+bin
 
 # Keytool Files
 *.pem

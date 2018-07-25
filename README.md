@@ -2,7 +2,6 @@
 
 Report the people who used the staff fee privilege for each term.
 
-
 ## Getting Started
 
 ### Prerequisites
@@ -73,3 +72,28 @@ $ npm test
 # Using gulp
 $ gulp test
 ```
+
+## Docker
+
+[Dockerfile](Dockerfile) is also provided. To run the app in a container, just simply install [Docker](https://www.docker.com/) first, then:
+
+1. Download an [Oracle Instant Client 12.2 Basic Light zip (64 bits)](http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html), and place in `./bin` folder.
+
+2. Build the docker image:
+
+  ```shell
+  $ docker build -t staff-fee-privilege-api .
+  ```
+
+3. Run the app in a container:
+
+  ```shell
+  $ docker run -d \
+               -p 8080:8080 \
+               -p 8081:8081 \
+               -v path/to/keytools/:/usr/src/staff-fee-privilege-api/keytools:ro \
+               -v "$PWD"/config:/usr/src/staff-fee-privilege-api/config:ro \
+               -v "$PWD"/logs:/usr/src/staff-fee-privilege-api/logs \
+               --name staff-fee-privilege-api \
+               staff-fee-privilege-api
+  ```

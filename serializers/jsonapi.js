@@ -1,3 +1,4 @@
+require('dotenv').config();
 const config = require('config');
 const decamelize = require('decamelize');
 const fs = require('fs');

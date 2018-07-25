@@ -1,3 +1,4 @@
+require('dotenv').config();
 const config = require('config');
 const basicAuth = require('express-basic-auth');
 const { unauthorized } = require('../errors/errors');
