@@ -8,7 +8,7 @@ const moment = require('moment');
 const db = require('./db/db');
 const { badRequest, notFound, errorHandler } = require('./errors/errors');
 const { authentication } = require('./middlewares/authentication');
-const { stdoutlogger, rfsLogger } = require('./middlewares/logger');
+const { logger } = require('./middlewares/logger');
 
 // Create Express application
 const serverConfig = config.get('server');
@@ -18,9 +18,8 @@ const adminApp = express();
 const adminAppRouter = express.Router();
 
 // Middlewares
+app.use(logger);
 app.use(serverConfig.basePath, appRouter);
-appRouter.use(stdoutlogger);
-appRouter.use(rfsLogger);
 appRouter.use(authentication);
 
 adminApp.use(serverConfig.basePath, adminAppRouter);

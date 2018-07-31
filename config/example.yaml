@@ -22,9 +22,10 @@ database:
   poolMax: 30
 
 logger:
-  interval: 1d
-  size: 10M
-  compress: true
+  size: 10m
   maxFiles: 5
   path: logs
   pattern: YYYY-MM-DD
+  archive: true
+  colorize: true
+  jsonConsole: true
