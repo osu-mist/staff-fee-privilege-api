@@ -15,9 +15,7 @@ Report the people who used the staff fee privilege for each term.
   $ openssl x509 -req -days 365 -in csr.pem -signkey key.pem -out server.crt
   ```
 
-4. Copy [config/example.yaml](config/example.yaml) to `config/default.yaml`. Modify as necessary, being careful to avoid committing sensitive data.
-
-    Options for logger configuration:
+4. Copy [config/example.yaml](config/example.yaml) to `config/default.yaml`. Modify as necessary, being careful to avoid committing sensitive data. Options for logger configuration:
 
     | Option | Description |
     | ------ | ----------- |
