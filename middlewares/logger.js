@@ -1,7 +1,7 @@
 const config = require('config');
 const expressWinston = require('express-winston');
-require('winston-daily-rotate-file');
 const winston = require('winston');
+require('winston-daily-rotate-file');
 
 const loggerConfig = config.get('logger');
 const apiName = config.get('api').name;
