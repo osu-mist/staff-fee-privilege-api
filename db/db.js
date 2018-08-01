@@ -1,4 +1,3 @@
-require('dotenv').config();
 const config = require('config');
 const _ = require('lodash');
 const oracledb = require('oracledb');
