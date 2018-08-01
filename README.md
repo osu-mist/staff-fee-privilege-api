@@ -17,10 +17,10 @@ Report the people who used the staff fee privilege for each term.
 
 4. Copy [config/example.yaml](config/example.yaml) to `config/default.yaml`. Modify as necessary, being careful to avoid committing sensitive data.
 
-  Options for logger configuration:
+    Options for logger configuration:
 
     | option | description |
-    | ====== | =========== |
+    | ------ | ----------- |
     | size | Maximum size of the file after which it will rotate. This can be a number of bytes, or units of kb, mb, and gb. If using the units, add 'k', 'm', or 'g' as the suffix. The units need to directly follow the number |
     | maxFiles | Maximum number of logs to keep. If not set, no logs will be removed. This can be a number of files or number of days. If using days, add 'd' as the suffix. |
     | path | The directory name to save log files to. |
