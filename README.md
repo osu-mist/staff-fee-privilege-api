@@ -19,15 +19,15 @@ Report the people who used the staff fee privilege for each term.
 
     Options for logger configuration:
 
-    | option | description |
+    | Option | Description |
     | ------ | ----------- |
-    | size | Maximum size of the file after which it will rotate. This can be a number of bytes, or units of kb, mb, and gb. If using the units, add 'k', 'm', or 'g' as the suffix. The units need to directly follow the number |
-    | maxFiles | Maximum number of logs to keep. If not set, no logs will be removed. This can be a number of files or number of days. If using days, add 'd' as the suffix. |
-    | path | The directory name to save log files to. |
-    | pattern | A string representing the [moment.js date format](https://momentjs.com/docs/#/displaying/format/) to be used for rotating. The meta characters used in this string will dictate the frequency of the file rotation. For example, if your datePattern is simply 'HH' you will end up with 24 log files that are picked up and appended to every day. |
-    | archive | A boolean to define whether or not to gzip archived log files. |
-    | colorize | Color the text and status code, using the Express/morgan color palette (text: gray, status: default green, 3XX cyan, 4XX yellow, 5XX red). |
-    | jsonConsole | A boolean to jsonfy the output. |
+    | **size** | Maximum size of the file after which it will rotate. This can be a number of bytes, or units of kb, mb, and gb. If using the units, add 'k', 'm', or 'g' as the suffix. The units need to directly follow the number |
+    | **maxFiles** | Maximum number of logs to keep. If not set, no logs will be removed. This can be a number of files or number of days. If using days, add 'd' as the suffix. |
+    | **path** | The directory name to save log files to. |
+    | **pattern** | A string representing the [moment.js date format](https://momentjs.com/docs/#/displaying/format/) to be used for rotating. The meta characters used in this string will dictate the frequency of the file rotation. For example, if your datePattern is simply 'HH' you will end up with 24 log files that are picked up and appended to every day. |
+    | **archive** | A boolean to define whether or not to gzip archived log files. |
+    | **colorize** | Color the text and status code, using the Express/morgan color palette (text: gray, status: default green, 3XX cyan, 4XX yellow, 5XX red). |
+    | **jsonConsole** | A boolean to jsonfy the output. |
 
 ### Installing
 
