@@ -26,7 +26,7 @@ adminAppRouter.use(authentication);
 adminAppRouter.use('/healthcheck', require('express-healthcheck')());
 
 // GET /
-appRouter.get('/', async (req, res) => {
+adminAppRouter.get('/', async (req, res) => {
   try {
     const commit = await git().revparse(['--short', 'HEAD']);
     const now = moment();
