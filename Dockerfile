@@ -1,13 +1,14 @@
 FROM node:8.11
 
-RUN apt-get update && apt-get install -y libaio1 unzip
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - \
+ && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update && apt-get install -y libaio1 unzip yarn
 
 RUN mkdir -p /usr/src/staff-fee-privilege-api /opt/oracle
 
 WORKDIR /usr/src/staff-fee-privilege-api
 COPY . /usr/src/staff-fee-privilege-api
 
-RUN npm install -g yarn
 RUN yarn global add gulp && yarn
 RUN unzip bin/instantclient-basiclite-linux.x64-12.2.0.1.0.zip -d /opt/oracle \
  && mv /opt/oracle/instantclient_12_2 /opt/oracle/instantclient
