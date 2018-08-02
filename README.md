@@ -33,14 +33,14 @@ Report the people who used the staff fee privilege for each term.
 
     | Environment variable | Description |
     | -------------------- | ----------- |
-    | ${PORT} | The port used by the API. |
-    | ${ADMIN_PORT} | The port used by the **ADMIN** endpoint. |
-    | ${USER} | The HTTP Basic username used to authenticate API calls. |
-    | ${PASSWD} | The HTTP Basic password used to authenticate API calls. |
-    | ${DBURL} | The database URL used to connect to a backend db store. |
-    | ${DBUSER} | The database username used to connect to a backend db store. |
-    | ${DBPASSWD} | The database password used to connect to a backend db store. |
-    | ${ENDPOINTURI} | API endpoint URI. |
+    | **${PORT}** | The port used by the API. |
+    | **${ADMIN_PORT}** | The port used by the **ADMIN** endpoint. |
+    | **${USER}** | The HTTP Basic username used to authenticate API calls. |
+    | **${PASSWD}** | The HTTP Basic password used to authenticate API calls. |
+    | **${DBURL}** | The database URL used to connect to a backend db store. |
+    | **${DBUSER}** | The database username used to connect to a backend db store. |
+    | **${DBPASSWD}** | The database password used to connect to a backend db store. |
+    | **${ENDPOINTURI}** | API endpoint URI. |
 
 ### Installing
 
