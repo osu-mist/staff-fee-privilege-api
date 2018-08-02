@@ -12,7 +12,6 @@ const dailyRotateFileTransport = new (winston.transports.DailyRotateFile)({
   datePattern: loggerConfig.pattern,
   maxSize: loggerConfig.size,
   zippedArchive: loggerConfig.archive,
-  maxFiles: loggerConfig.maxFiles,
   dirname: loggerConfig.path,
 });
 
