@@ -4,8 +4,8 @@ api:
 
 server:
   basePath: /api/v1
-  port: 8080  # default port. Will be overwritten by env var $PORT
-  adminPort: 8081  # default admin port. Will be overwritten by env var $ADMIN_PORT
+  port: ${PORT}
+  adminPort: ${ADMIN_PORT}
   keyPath: /path/to/key.pem
   certPath: /path/to/server.crt
   secureProtocol: TLSv1_2_method
