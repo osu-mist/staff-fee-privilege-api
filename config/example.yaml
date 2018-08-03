@@ -1,30 +1,30 @@
 api:
   name: staff-fee-privilege
-  endpointUri: https://api.oregonstate.edu/v1
+  endpointUri: ${ENDPOINTURI}
 
 server:
   basePath: /api/v1
-  port: 8080
-  adminPort: 8081
+  port: 8080  # default port. Will be overwritten by env var $PORT
+  adminPort: 8081  # default admin port. Will be overwritten by env var $ADMIN_PORT
   keyPath: /path/to/key.pem
   certPath: /path/to/server.crt
   secureProtocol: TLSv1_2_method
 
 authentication:
-  username: username
-  password: password
+  username: ${USER}
+  password: ${PASSWD}
 
 database:
-  connectString: localhost/XE
-  user: hr
-  password: welcome
+  connectString: ${DBURL}
+  user: ${DBUSER}
+  password: ${DBPASSWD}
   poolMin: 3
   poolMax: 30
 
 logger:
-  interval: 1d
-  size: 10M
-  compress: true
-  maxFiles: 5
+  size: 10m
   path: logs
   pattern: YYYY-MM-DD
+  archive: true
+  colorize: true
+  jsonConsole: false

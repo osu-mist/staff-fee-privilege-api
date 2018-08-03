@@ -17,6 +17,31 @@ Report the people who used the staff fee privilege for each term.
 
 4. Copy [config/example.yaml](config/example.yaml) to `config/default.yaml`. Modify as necessary, being careful to avoid committing sensitive data.
 
+    **Options for logger configuration**:
+
+    | Option | Description |
+    | ------ | ----------- |
+    | **size** | Maximum size of the file after which it will rotate. This can be a number of bytes, or units of kb, mb, and gb. If using the units, add 'k', 'm', or 'g' as the suffix. The units need to directly follow the number. |
+    | **maxFiles** | Maximum number of logs to keep. If not set, no logs will be removed. This can be a number of files or number of days. If using days, add 'd' as the suffix. |
+    | **path** | The directory name to save log files to. |
+    | **pattern** | A string representing the [moment.js date format](https://momentjs.com/docs/#/displaying/format/) to be used for rotating. The meta characters used in this string will dictate the frequency of the file rotation. For example, if your datePattern is simply 'HH' you will end up with 24 log files that are picked up and appended to every day. |
+    | **archive** | A boolean to define whether or not to gzip archived log files. |
+    | **colorize** | Color the text and status code, using the Express/morgan color palette (text: gray, status: default green, 3XX cyan, 4XX yellow, 5XX red). |
+    | **jsonConsole** | A boolean to jsonfy the output. |
+
+    **Environment variables**: Sensitive data and data that changes per environment has been moved into environment variables. Below is a list of the variables along with a definition:
+
+    | Environment variable | Description |
+    | -------------------- | ----------- |
+    | **${PORT}** | The port used by the API. |
+    | **${ADMIN_PORT}** | The port used by the **ADMIN** endpoint. |
+    | **${USER}** | The HTTP Basic username used to authenticate API calls. |
+    | **${PASSWD}** | The HTTP Basic password used to authenticate API calls. |
+    | **${DBURL}** | The database URL used to connect to a backend db store. |
+    | **${DBUSER}** | The database username used to connect to a backend db store. |
+    | **${DBPASSWD}** | The database password used to connect to a backend db store. |
+    | **${ENDPOINTURI}** | API endpoint URI. |
+
 ### Installing
 
 ```shell

@@ -1,4 +1,3 @@
-require('dotenv').config();
 const config = require('config');
 const express = require('express');
 const fs = require('fs');
@@ -8,7 +7,7 @@ const moment = require('moment');
 const db = require('./db/db');
 const { badRequest, notFound, errorHandler } = require('./errors/errors');
 const { authentication } = require('./middlewares/authentication');
-const { stdoutlogger, rfsLogger } = require('./middlewares/logger');
+const { logger } = require('./middlewares/logger');
 
 // Create Express application
 const serverConfig = config.get('server');
@@ -18,9 +17,8 @@ const adminApp = express();
 const adminAppRouter = express.Router();
 
 // Middlewares
+app.use(logger);
 app.use(serverConfig.basePath, appRouter);
-appRouter.use(stdoutlogger);
-appRouter.use(rfsLogger);
 appRouter.use(authentication);
 
 adminApp.use(serverConfig.basePath, adminAppRouter);
@@ -28,7 +26,7 @@ adminAppRouter.use(authentication);
 adminAppRouter.use('/healthcheck', require('express-healthcheck')());
 
 // GET /
-appRouter.get('/', async (req, res) => {
+adminAppRouter.get('/', async (req, res) => {
   try {
     const commit = await git().revparse(['--short', 'HEAD']);
     const now = moment();

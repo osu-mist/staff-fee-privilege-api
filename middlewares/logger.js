@@ -1,25 +1,30 @@
 const config = require('config');
-const moment = require('moment');
-const morgan = require('morgan');
-const rfs = require('rotating-file-stream');
+const expressWinston = require('express-winston');
+const winston = require('winston');
+require('winston-daily-rotate-file');
 
 const loggerConfig = config.get('logger');
 const apiName = config.get('api').name;
 
-const logGenerator = () => {
-  const pattern = moment().utc().format(`${loggerConfig.pattern}`);
-  return `${apiName}-${pattern}.log`;
-};
-
-const LogStream = rfs(logGenerator, {
-  interval: loggerConfig.interval,
-  size: loggerConfig.size,
-  path: loggerConfig.path,
-  compress: loggerConfig.compress,
-  maxFiles: loggerConfig.maxFiles,
+// Transport for daily rotate file
+const dailyRotateFileTransport = new (winston.transports.DailyRotateFile)({
+  filename: `${apiName}-%DATE%.log`,
+  datePattern: loggerConfig.pattern,
+  maxSize: loggerConfig.size,
+  zippedArchive: loggerConfig.archive,
+  dirname: loggerConfig.path,
 });
 
-const stdoutlogger = morgan('dev');
-const rfsLogger = morgan('combined', { stream: LogStream });
+// Transport for console output
+const consoleTransport = new winston.transports.Console({
+  json: loggerConfig.jsonConsole,
+  colorize: loggerConfig.colorize,
+});
 
-module.exports = { stdoutlogger, rfsLogger };
+const logger = expressWinston.logger({
+  transports: [dailyRotateFileTransport, consoleTransport],
+  expressFormat: true,
+  colorize: loggerConfig.colorize,
+});
+
+module.exports = { logger };
