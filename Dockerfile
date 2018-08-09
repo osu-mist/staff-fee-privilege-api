@@ -19,3 +19,5 @@ RUN echo /opt/oracle/instantclient_12_2 > /etc/ld.so.conf.d/oracle-instantclient
 
 RUN gulp test && rm -rf logs
 USER nobody:nogroup
+
+ENTRYPOINT ["gulp", "run"]
