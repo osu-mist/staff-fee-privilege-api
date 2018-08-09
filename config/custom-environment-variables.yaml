@@ -10,3 +10,5 @@ database:
   connectString: 'DBURL'
   user: 'DBUSER'
   password: 'DBPASSWD'
+logger:
+  enable: 'ENABLE_LOGGER'

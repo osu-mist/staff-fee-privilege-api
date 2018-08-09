@@ -17,7 +17,7 @@ const adminApp = express();
 const adminAppRouter = express.Router();
 
 // Middlewares
-app.use(logger);
+if (logger) app.use(logger);
 app.use(serverConfig.basePath, appRouter);
 appRouter.use(authentication);
 
