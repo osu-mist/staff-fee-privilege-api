@@ -17,5 +17,7 @@ RUN cd /opt/oracle/instantclient_12_2 \
 RUN echo /opt/oracle/instantclient_12_2 > /etc/ld.so.conf.d/oracle-instantclient.conf \
  && ldconfig
 
+RUN gulp test
 USER nobody:nogroup
-CMD ["gulp", "test"]
+
+ENTRYPOINT ["gulp", "run"]
