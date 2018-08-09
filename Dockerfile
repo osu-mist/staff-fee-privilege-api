@@ -17,4 +17,5 @@ RUN cd /opt/oracle/instantclient_12_2 \
 RUN echo /opt/oracle/instantclient_12_2 > /etc/ld.so.conf.d/oracle-instantclient.conf \
  && ldconfig
 
+USER nobody:nogroup
 CMD ["gulp", "test"]
