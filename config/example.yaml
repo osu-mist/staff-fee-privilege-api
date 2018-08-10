@@ -22,7 +22,6 @@ database:
   poolMax: 30
 
 logger:
-  enable: false
   size: 10m
   path: logs
   pattern: YYYY-MM-DD
