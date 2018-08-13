@@ -38,8 +38,10 @@ const getStaffFeePrivilegesByQuery = query =>
       _.forEach(rows, row => sanitize(row));
       const jsonapi = StaffFeePrivilegeSerializer(rows);
       resolve(jsonapi);
+      connection.close();
     } catch (err) {
       reject(err);
+      connection.close();
     }
   });
 
@@ -63,8 +65,10 @@ const getStaffFeePrivilegesById = query =>
         const jsonapi = StaffFeePrivilegeSerializer(sanitize(row));
         resolve(jsonapi);
       }
+      connection.close();
     } catch (err) {
       reject(err);
+      connection.close();
     }
   });
 
