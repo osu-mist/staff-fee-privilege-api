@@ -18,8 +18,8 @@ database:
   connectString: ${DBURL}
   user: ${DBUSER}
   password: ${DBPASSWD}
-  poolMin: 5
-  poolMax: 5
+  poolMin: 30
+  poolMax: 30
   poolIncrement: 0
 
 logger:
