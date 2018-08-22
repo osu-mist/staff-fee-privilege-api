@@ -31,11 +31,13 @@ adminAppRouter.get('/', async (req, res) => {
     const commit = await git().revparse(['--short', 'HEAD']);
     const now = moment();
     const info = {
-      name: `${config.get('api').name}-api`,
-      time: now.format('YYYY-MM-DD HH:mm:ssZZ'),
-      unixTime: now.unix(),
-      commit: commit.trim(),
-      documentation: 'swagger.yaml',
+      meta: {
+        name: `${config.get('api').name}-api`,
+        time: now.format('YYYY-MM-DD HH:mm:ssZZ'),
+        unixTime: now.unix(),
+        commit: commit.trim(),
+        documentation: 'swagger.yaml',
+      },
     };
     res.send(info);
   } catch (err) {
