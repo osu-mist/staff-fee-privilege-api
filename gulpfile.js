@@ -11,7 +11,7 @@ gulp.task('lint', () =>
     .pipe(eslint.failAfterError()));
 
 gulp.task('test', () =>
-  gulp.src(['tests/*.js'])
+  gulp.src(['tests/unit/*.js'])
     .pipe(mocha({ reporter: 'spec' })));
 
 gulp.task('start', () => nodemon({ script: 'app.js' }));

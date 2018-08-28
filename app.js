@@ -1,13 +1,15 @@
+const reqlib = require('app-root-path').require;
 const config = require('config');
 const express = require('express');
 const fs = require('fs');
 const git = require('simple-git/promise');
 const https = require('https');
 const moment = require('moment');
-const db = require('./db/db');
-const { badRequest, notFound, errorHandler } = require('./errors/errors');
-const { authentication } = require('./middlewares/authentication');
-const { logger } = require('./middlewares/logger');
+
+const db = reqlib('/db/db');
+const { badRequest, notFound, errorHandler } = reqlib('/errors/errors');
+const { authentication } = reqlib('/middlewares/authentication');
+const { logger } = reqlib('/middlewares/logger');
 
 // Create Express application
 const serverConfig = config.get('server');

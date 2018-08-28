@@ -1,8 +1,10 @@
+const reqlib = require('app-root-path').require;
 const config = require('config');
 const _ = require('lodash');
 const oracledb = require('oracledb');
-const contrib = require('../contrib/contrib');
-const { StaffFeePrivilegeSerializer } = require('../serializers/jsonapi');
+
+const contrib = reqlib('/contrib/contrib');
+const { StaffFeePrivilegeSerializer } = reqlib('/serializers/jsonapi');
 
 process.on('SIGINT', () => process.exit());
 

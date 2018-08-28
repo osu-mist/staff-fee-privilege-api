@@ -1,8 +1,10 @@
+const reqlib = require('app-root-path').require;
 const camelCase = require('camelcase');
 const chai = require('chai');
 const chaiString = require('chai-string');
 const _ = require('lodash');
-const { StaffFeePrivilegeSerializer } = require('../serializers/jsonapi');
+
+const { StaffFeePrivilegeSerializer } = reqlib('/serializers/jsonapi');
 
 const { assert } = chai;
 chai.use(chaiString);
