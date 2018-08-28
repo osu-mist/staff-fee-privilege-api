@@ -1,10 +1,45 @@
+import logging
+import sys
 import unittest
 
+import utils
 
-class IntegrationTest(unittest.TestCase):
-    def test_upper(self):
-        self.assertEqual('foo'.upper(), 'FOO')
+
+class TestGetByParameters(unittest.TestCase):
+    # helper funtion: test response time
+    def assert_response_time(self, elapsed_seconds, max_elapsed_seconds):
+        logging.debug(f"Request took {elapsed_seconds} second(s)")
+        self.assertLess(elapsed_seconds, max_elapsed_seconds)
+
+    def test_get_by_valid_osu_id(self):
+        res = utils.get_by_osu_id(osu_id)
+        res_data = res.json()['data']
+
+        self.assert_response_time(res.elapsed.total_seconds(), 1)
+        self.assertEqual(res.status_code, 200)
+        self.assertIsInstance(res_data, list)
+
+    def test_get_by_term_id(self):
+        res = utils.get_by_term_id(term_id)
+        res_data = res.json()['data']
+
+        self.assert_response_time(res.elapsed.total_seconds(), 1)
+        self.assertEqual(res.status_code, 200)
+        self.assertIsInstance(res_data, list)
+
+
+# class TestGetByID(unittest.TestCase):
+#     def test_get(self):
+#         utils.get_by_osu_id(osu_id)
+#         self.assertEqual('foo'.upper(), 'FOO')
 
 
 if __name__ == '__main__':
+    args, argv = utils.parse_args()
+    config_data = utils.load_config(args.inputfile)
+
+    osu_id = config_data['staff_fee_privilege_osu_id']
+    term_id = config_data['staff_fee_privilege_term_id']
+
+    sys.argv[:] = argv
     unittest.main()
