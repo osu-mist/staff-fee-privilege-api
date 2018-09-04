@@ -19,7 +19,7 @@ class IntegrationTest(unittest.TestCase):
                 res = utils.get_by_osu_id(random_osu_id)
                 res_data = res.json()['data']
 
-                self.assert_response_time(res.elapsed.total_seconds(), 1)
+                self.assert_response_time(res.elapsed.total_seconds(), 3)
                 self.assertEqual(res.status_code, 200)
                 self.assertIsInstance(res_data, list)
 
@@ -30,9 +30,19 @@ class IntegrationTest(unittest.TestCase):
                 res = utils.get_by_term_id(random_term_id)
                 res_data = res.json()['data']
 
-                self.assert_response_time(res.elapsed.total_seconds(), 20)
+                self.assert_response_time(res.elapsed.total_seconds(), 5)
                 self.assertEqual(res.status_code, 200)
                 self.assertIsInstance(res_data, list)
+
+    def test_get_by_id(self):
+        id = f"{osu_id}-{term_id}"
+        res = utils.get_by_id(id)
+
+        res_data = res.json()['data']
+
+        self.assert_response_time(res.elapsed.total_seconds(), 3)
+        self.assertEqual(res.status_code, 200)
+        self.assertIsInstance(res_data, dict)
 
 
 if __name__ == '__main__':

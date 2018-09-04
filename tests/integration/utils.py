@@ -41,3 +41,8 @@ def get_by_term_id(term_id):
 def get_by_osu_id(osu_id):
     payload = {'osuId': osu_id}
     return requests.get(api_url, params=payload, headers=headers)
+
+
+def get_by_id(id):
+    url = f"{api_url}/{id}"
+    return requests.get(url, headers=headers)
