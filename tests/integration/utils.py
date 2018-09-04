@@ -33,13 +33,7 @@ def load_config(input_file):
     return config_data
 
 
-def get_by_term_id(term_id):
-    payload = {'term': term_id}
-    return requests.get(api_url, params=payload, headers=headers)
-
-
-def get_by_osu_id(osu_id):
-    payload = {'osuId': osu_id}
+def get_by_params(payload):
     return requests.get(api_url, params=payload, headers=headers)
 
 
