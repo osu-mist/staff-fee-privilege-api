@@ -14,6 +14,7 @@ class IntegrationTest(unittest.TestCase):
 
         self.assertLess(elapsed_seconds, max_elapsed_seconds)
 
+    # helper funtion: test object attributes
     def assert_attributes(self, attributes):
         valid_rates = [
             'Staff Undergraduate',       # STUG
