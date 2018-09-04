@@ -21,12 +21,13 @@ class IntegrationTest(unittest.TestCase):
         for _ in range(5):
             random_osu_id = f"93{randint(0000000, 9999999)}"
             with self.subTest(random_osu_id=random_osu_id):
-                res = utils.get_by_params({'osuId': osu_id})
+                logging.debug(f"Tesing OSU ID: {random_osu_id}")
+                res = utils.get_by_params({'osuId': random_osu_id})
 
                 self.assertIn('data', res.json())
                 self.assertIsInstance(res.json()['data'], list)
                 self.assert_response_time(res.elapsed.total_seconds(), 5)
-                self.assertEqual(res.status_code, 200)
+                self.assertEqual(res.status_code, 2)
 
     def test_get_by_invalid_osu_id(self):
         res = utils.get_by_params({'osuId': 'invalid_osu_id'})
@@ -40,7 +41,8 @@ class IntegrationTest(unittest.TestCase):
         for _ in range(3):
             random_term_id = f"{randint(2000, 2018)}0{randint(0, 3)}"
             with self.subTest(random_term_id=random_term_id):
-                res = utils.get_by_params({'term': term_id})
+                logging.debug(f"Tesing term: {random_term_id}")
+                res = utils.get_by_params({'term': random_term_id})
                 self.assertIn('data', res.json())
                 self.assertIsInstance(res.json()['data'], list)
                 self.assert_response_time(res.elapsed.total_seconds(), 7)
@@ -73,7 +75,8 @@ class IntegrationTest(unittest.TestCase):
 
 if __name__ == '__main__':
     args, argv = utils.parse_args()
-    config_data = utils.load_config(args.inputfile)
+    config_data = utils.load_config(args.config)
+    logging.basicConfig(level=logging.DEBUG if args.debug else logging.WARNING)
 
     osu_id = config_data['staff_fee_privilege_osu_id']
     term_id = config_data['staff_fee_privilege_term_id']

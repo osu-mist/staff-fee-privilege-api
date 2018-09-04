@@ -8,7 +8,17 @@ import requests
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-i', help='input file', dest='inputfile')
+    parser.add_argument(
+        '--config', '-i',
+        help='Path to configuration file containing API credentials',
+        dest='config'
+    )
+    parser.add_argument(
+        '--debug', '-d',
+        help='Enable debug logging mode',
+        dest='debug',
+        action='store_true'
+    )
     ns, args = parser.parse_known_args(namespace=unittest)
     return ns, sys.argv[:1] + args
 
