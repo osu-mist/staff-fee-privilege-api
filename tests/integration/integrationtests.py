@@ -41,7 +41,9 @@ class IntegrationTest(unittest.TestCase):
                 res = utils.get_by_params({'osuId': random_osu_id})
 
                 self.assertIn('data', res.json())
-                self.assertIsInstance(res.json()['data'], list)
+                data = res.json()['data']
+                self.assertIsInstance(data, list)
+                map(lambda x: self.assert_attributes(x['attributes']), data)
                 self.assert_response_time(res, 5)
                 self.assertEqual(res.status_code, 200)
 
@@ -61,7 +63,9 @@ class IntegrationTest(unittest.TestCase):
                 res = utils.get_by_params({'term': random_term_id})
 
                 self.assertIn('data', res.json())
-                self.assertIsInstance(res.json()['data'], list)
+                data = res.json()['data']
+                self.assertIsInstance(data, list)
+                map(lambda x: self.assert_attributes(x['attributes']), data)
                 self.assert_response_time(res, 7)
                 self.assertEqual(res.status_code, 200)
 
