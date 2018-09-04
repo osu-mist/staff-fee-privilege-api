@@ -11,10 +11,25 @@ class IntegrationTest(unittest.TestCase):
     def assert_response_time(self, res, max_elapsed_seconds):
         elapsed_seconds = res.elapsed.total_seconds()
         logging.debug(f"Request took {elapsed_seconds} second(s)")
+
         self.assertLess(elapsed_seconds, max_elapsed_seconds)
+
+    def assert_attributes(self, attributes):
+        valid_rates = [
+            'Staff Undergraduate',       # STUG
+            'Staff Graduate',            # STGR
+            'OSU Staff Dependent UG',    # SDUG
+            'OSU Staff Dependent Grad',  # SDGR
+            'OUS Staff Dependent UG',    # ODUG
+            'OUS Staff Dependent Grad'   # ODGR
+        ]
+        self.assertTrue(attributes['currentEnrolled'])
+        self.assertTrue(attributes['currentRegistered'])
+        self.assertIn(attributes['studentRate'], valid_rates)
 
     def test_bad_request(self):
         res = utils.get_by_params(None)
+
         self.assert_response_time(res, 1)
         self.assertEqual(res.status_code, 400)
 
@@ -44,6 +59,7 @@ class IntegrationTest(unittest.TestCase):
             with self.subTest(random_term_id=random_term_id):
                 logging.debug(f"Tesing term: {random_term_id}")
                 res = utils.get_by_params({'term': random_term_id})
+
                 self.assertIn('data', res.json())
                 self.assertIsInstance(res.json()['data'], list)
                 self.assert_response_time(res, 7)
@@ -65,6 +81,7 @@ class IntegrationTest(unittest.TestCase):
         self.assertIsInstance(res.json()['data'], dict)
         self.assert_response_time(res, 5)
         self.assertEqual(res.status_code, 200)
+        self.assert_attributes(res.json()['data']['attributes'])
 
     def test_get_by_invalid_id(self):
         id = 'invalid_id'
