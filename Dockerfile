@@ -7,7 +7,7 @@ RUN mkdir -p /usr/src/staff-fee-privilege-api /opt/oracle
 WORKDIR /usr/src/staff-fee-privilege-api
 COPY . /usr/src/staff-fee-privilege-api
 
-RUN npm install -g gulp && npm install
+RUN npm install -g yarn && yarn
 RUN unzip bin/instantclient-basiclite-linux.x64-12.2.0.1.0.zip -d /opt/oracle
 
 RUN cd /opt/oracle/instantclient_12_2 \
@@ -17,7 +17,7 @@ RUN cd /opt/oracle/instantclient_12_2 \
 RUN echo /opt/oracle/instantclient_12_2 > /etc/ld.so.conf.d/oracle-instantclient.conf \
  && ldconfig
 
-RUN gulp test
+RUN ./node_modules/.bin/gulp test
 USER nobody:nogroup
 
-ENTRYPOINT ["gulp", "run"]
+ENTRYPOINT ["./node_modules/.bin/gulp", "run"]
