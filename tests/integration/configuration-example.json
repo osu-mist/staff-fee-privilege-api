@@ -1,0 +1,12 @@
+{
+  "hostname": "https://api.oregonstate.edu",
+  "version": "v1",
+  "api": "staff-fee-privilege",
+
+  "token_api_url": "https://api.oregonstate.edu/oauth2/token",
+  "client_id": "secret",
+  "client_secret": "sauce",
+
+  "staff_fee_privilege_osu_id": "osu_id",
+  "staff_fee_privilege_term_id": "term_id"
+}
