@@ -55,11 +55,11 @@ Report the people who used the staff fee privilege for each term.
 ### Installing
 
 ```shell
+# Using yarn (recommended)
+$ yarn
+
 # Using npm
 $ npm install
-
-# Using yarn
-$ yarn
 ```
 
 ### Usage
