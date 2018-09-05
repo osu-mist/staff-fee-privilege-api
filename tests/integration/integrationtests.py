@@ -5,6 +5,15 @@ from random import randint
 
 import utils
 
+VALID_RATES = [
+    'Staff Undergraduate',       # STUG
+    'Staff Graduate',            # STGR
+    'OSU Staff Dependent UG',    # SDUG
+    'OSU Staff Dependent Grad',  # SDGR
+    'OUS Staff Dependent UG',    # ODUG
+    'OUS Staff Dependent Grad'   # ODGR
+]
+
 
 class IntegrationTest(unittest.TestCase):
     # helper funtion: test response time
@@ -16,17 +25,9 @@ class IntegrationTest(unittest.TestCase):
 
     # helper funtion: test object attributes
     def assert_attributes(self, attributes):
-        valid_rates = [
-            'Staff Undergraduate',       # STUG
-            'Staff Graduate',            # STGR
-            'OSU Staff Dependent UG',    # SDUG
-            'OSU Staff Dependent Grad',  # SDGR
-            'OUS Staff Dependent UG',    # ODUG
-            'OUS Staff Dependent Grad'   # ODGR
-        ]
         self.assertTrue(attributes['currentEnrolled'])
         self.assertTrue(attributes['currentRegistered'])
-        self.assertIn(attributes['studentRate'], valid_rates)
+        self.assertIn(attributes['studentRate'], VALID_RATES)
 
     def test_bad_request(self):
         res = utils.get_by_params(None)
