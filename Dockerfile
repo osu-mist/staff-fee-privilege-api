@@ -7,7 +7,7 @@ RUN mkdir -p /usr/src/staff-fee-privilege-api /opt/oracle
 WORKDIR /usr/src/staff-fee-privilege-api
 COPY . /usr/src/staff-fee-privilege-api
 
-RUN npm install -g yarn && yarn
+RUN yarn
 RUN unzip bin/instantclient-basiclite-linux.x64-12.2.0.1.0.zip -d /opt/oracle
 
 RUN cd /opt/oracle/instantclient_12_2 \
