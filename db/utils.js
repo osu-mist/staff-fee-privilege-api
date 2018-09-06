@@ -1,4 +1,4 @@
-// Sanitize raw data from database
+// Sanitize raw data
 const sanitize = (row) => {
   row.CAMPUS = row.CAMPUS ? row.CAMPUS.trim() : null;
   row.CURRENT_ENROLLED = row.CURRENT_ENROLLED === 'Y';
