@@ -47,10 +47,8 @@
     "eslint-plugin-import": "^2.11.0",
     "forever-monitor": "^1.7.1",
     "gulp": "4.0.0",
-    "gulp-cli": "^2.0.1",
     "gulp-eslint": "^4.0.2",
     "gulp-mocha": "^5.0.0",
-    "gulp-sequence": "^1.0.0",
     "mocha": "^5.1.1",
     "nodemon": "^1.17.4",
     "pre-commit": "^1.2.2"
