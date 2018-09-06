@@ -2,7 +2,7 @@ const reqlib = require('app-root-path').require;
 const chai = require('chai');
 const chaiString = require('chai-string');
 
-const { sanitize } = reqlib('/db/db');
+const { sanitize } = reqlib('/db/utils');
 
 const { assert, expect } = chai;
 chai.use(chaiString);

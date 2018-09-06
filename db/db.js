@@ -4,6 +4,7 @@ const _ = require('lodash');
 const oracledb = require('oracledb');
 
 const contrib = reqlib('/contrib/contrib');
+const dbUtils = reqlib('/db/utils');
 const { StaffFeePrivilegeSerializer } = reqlib('/serializers/jsonapi');
 
 process.on('SIGINT', () => process.exit());
@@ -21,22 +22,10 @@ const poolPromise = oracledb.createPool(dbConfig);
 // Get connection from created pool
 const getConnection = () => new Promise(async (resolve, reject) => {
   poolPromise.then(async (pool) => {
-    try {
-      const connection = await pool.getConnection();
-      resolve(connection);
-    } catch (err) {
-      reject(err);
-    }
+    const connection = await pool.getConnection();
+    resolve(connection);
   }).catch(err => reject(err));
 });
-
-// Sanitize raw data from database
-const sanitize = (row) => {
-  row.CAMPUS = row.CAMPUS ? row.CAMPUS.trim() : null;
-  row.CURRENT_ENROLLED = row.CURRENT_ENROLLED === 'Y';
-  row.CURRENT_REGISTERED = row.CURRENT_REGISTERED === 'Y';
-  return row;
-};
 
 // Get StaffFeePrivileges by query
 const getStaffFeePrivilegesByQuery = query =>
@@ -47,7 +36,7 @@ const getStaffFeePrivilegesByQuery = query =>
         contrib.getStaffFeePrivilegesByQuery(query),
         query,
       );
-      _.forEach(rows, row => sanitize(row));
+      _.forEach(rows, row => dbUtils.sanitize(row));
       const jsonapi = StaffFeePrivilegeSerializer(rows);
       resolve(jsonapi);
       connection.close();
@@ -80,7 +69,7 @@ const getStaffFeePrivilegesById = query =>
         reject(new Error('Expect a single object but got multiple results.'));
       } else {
         const [row] = rows;
-        const jsonapi = StaffFeePrivilegeSerializer(sanitize(row));
+        const jsonapi = StaffFeePrivilegeSerializer(dbUtils.sanitize(row));
         resolve(jsonapi);
       }
       connection.close();
@@ -90,4 +79,4 @@ const getStaffFeePrivilegesById = query =>
     }
   });
 
-module.exports = { getStaffFeePrivilegesByQuery, getStaffFeePrivilegesById, sanitize };
+module.exports = { getStaffFeePrivilegesByQuery, getStaffFeePrivilegesById };
