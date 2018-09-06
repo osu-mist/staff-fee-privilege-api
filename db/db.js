@@ -4,6 +4,7 @@ const _ = require('lodash');
 const oracledb = require('oracledb');
 
 const contrib = reqlib('/contrib/contrib');
+const dbUtils = reqlib('/db/utils');
 const { StaffFeePrivilegeSerializer } = reqlib('/serializers/jsonapi');
 
 process.on('SIGINT', () => process.exit());
@@ -26,14 +27,6 @@ const getConnection = () => new Promise(async (resolve, reject) => {
   }).catch(err => reject(err));
 });
 
-// Sanitize raw data from database
-const sanitize = (row) => {
-  row.CAMPUS = row.CAMPUS ? row.CAMPUS.trim() : null;
-  row.CURRENT_ENROLLED = row.CURRENT_ENROLLED === 'Y';
-  row.CURRENT_REGISTERED = row.CURRENT_REGISTERED === 'Y';
-  return row;
-};
-
 // Get StaffFeePrivileges by query
 const getStaffFeePrivilegesByQuery = query =>
   new Promise(async (resolve, reject) => {
@@ -43,7 +36,7 @@ const getStaffFeePrivilegesByQuery = query =>
         contrib.getStaffFeePrivilegesByQuery(query),
         query,
       );
-      _.forEach(rows, row => sanitize(row));
+      _.forEach(rows, row => dbUtils.sanitize(row));
       const jsonapi = StaffFeePrivilegeSerializer(rows);
       resolve(jsonapi);
       connection.close();
@@ -76,7 +69,7 @@ const getStaffFeePrivilegesById = query =>
         reject(new Error('Expect a single object but got multiple results.'));
       } else {
         const [row] = rows;
-        const jsonapi = StaffFeePrivilegeSerializer(sanitize(row));
+        const jsonapi = StaffFeePrivilegeSerializer(dbUtils.sanitize(row));
         resolve(jsonapi);
       }
       connection.close();
@@ -86,4 +79,4 @@ const getStaffFeePrivilegesById = query =>
     }
   });
 
-module.exports = { getStaffFeePrivilegesByQuery, getStaffFeePrivilegesById, sanitize };
+module.exports = { getStaffFeePrivilegesByQuery, getStaffFeePrivilegesById };

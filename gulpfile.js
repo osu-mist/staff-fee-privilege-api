@@ -1,8 +1,7 @@
+const forever = require('forever-monitor');
 const gulp = require('gulp');
 const eslint = require('gulp-eslint');
 const mocha = require('gulp-mocha');
-const nodemon = require('gulp-nodemon');
-const gulpSequence = require('gulp-sequence');
 
 gulp.task('lint', () =>
   gulp.src(['**/*.js', '!node_modules/**'])
@@ -14,6 +13,6 @@ gulp.task('test', () =>
   gulp.src(['tests/unit/*.js'])
     .pipe(mocha({ reporter: 'spec' })));
 
-gulp.task('start', () => nodemon({ script: 'app.js' }));
+gulp.task('start', () => new forever.Monitor('app.js').start());
 
-gulp.task('run', gulpSequence(['lint', 'test'], 'start'));
+gulp.task('run', gulp.series(gulp.parallel('lint', 'test'), 'start'));
