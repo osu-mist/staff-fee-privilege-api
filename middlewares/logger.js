@@ -4,11 +4,10 @@ const winston = require('winston');
 require('winston-daily-rotate-file');
 
 const loggerConfig = config.get('logger');
-const apiName = config.get('api').name;
 
 // Transport for daily rotate file
 const dailyRotateFileTransport = new (winston.transports.DailyRotateFile)({
-  filename: `${apiName}-%DATE%.log`,
+  filename: 'staff-fee-privilege-%DATE%.log',
   datePattern: loggerConfig.pattern,
   maxSize: loggerConfig.size,
   zippedArchive: loggerConfig.archive,

@@ -27,7 +27,7 @@ describe('Test staff-fee-privillege serializer', () => {
     EMPLOYEE_INSTITUTION: 'Oregon State University',
     RECEIVABLE_ACCOUNT: 'OSU Staff Tuition',
   }];
-  const jsonapi = StaffFeePrivilegeSerializer(rows);
+  const jsonapi = StaffFeePrivilegeSerializer(rows, 'exampleUri');
 
   it('keys should be camelCase', (done) => {
     const newKeys = _.keys(jsonapi.data[0].attributes);

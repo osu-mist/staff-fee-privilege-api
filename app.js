@@ -34,7 +34,7 @@ adminAppRouter.get('/', async (req, res) => {
     const now = moment();
     const info = {
       meta: {
-        name: `${config.get('api').name}-api`,
+        name: 'staff-fee-privilege-api',
         time: now.format('YYYY-MM-DD HH:mm:ssZZ'),
         unixTime: now.unix(),
         commit: commit.trim(),

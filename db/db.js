@@ -11,6 +11,7 @@ process.on('SIGINT', () => process.exit());
 
 oracledb.outFormat = oracledb.OBJECT;
 const dbConfig = config.get('database');
+const { endpointUri } = config.get('server');
 
 // Increase 1 extra thread for every 5 pools
 const threadPoolSize = dbConfig.poolMax + (dbConfig.poolMax / 5);
@@ -37,7 +38,7 @@ const getStaffFeePrivilegesByQuery = query =>
         query,
       );
       _.forEach(rows, row => dbUtils.sanitize(row));
-      const jsonapi = StaffFeePrivilegeSerializer(rows);
+      const jsonapi = StaffFeePrivilegeSerializer(rows, endpointUri);
       resolve(jsonapi);
       connection.close();
     } catch (err) {
@@ -69,7 +70,7 @@ const getStaffFeePrivilegesById = query =>
         reject(new Error('Expect a single object but got multiple results.'));
       } else {
         const [row] = rows;
-        const jsonapi = StaffFeePrivilegeSerializer(dbUtils.sanitize(row));
+        const jsonapi = StaffFeePrivilegeSerializer(dbUtils.sanitize(row), endpointUri);
         resolve(jsonapi);
       }
       connection.close();
