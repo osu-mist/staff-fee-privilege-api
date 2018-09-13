@@ -1,8 +1,5 @@
-api:
-  name: staff-fee-privilege
-  endpointUri: ${ENDPOINTURI}
-
 server:
+  endpointUri: ${ENDPOINTURI}
   basePath: /api/v1
   port: ${PORT}
   adminPort: ${ADMIN_PORT}

@@ -1,6 +1,5 @@
-api:
-  endpointUri: 'ENDPOINTURI'
 server:
+  endpointUri: 'ENDPOINTURI'
   port: 'PORT'
   adminPort: 'ADMIN_PORT'
 authentication:

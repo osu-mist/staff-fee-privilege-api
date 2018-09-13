@@ -46,7 +46,7 @@ class IntegrationTest(unittest.TestCase):
                 data = res.json()['data']
                 self.assertIsInstance(data, list)
                 map(lambda x: self.assert_attributes(x['attributes']), data)
-                self.assert_response_time(res, 5)
+                self.assert_response_time(res, 2)
                 self.assertEqual(res.status_code, 200)
 
     def test_get_by_invalid_osu_id(self):
@@ -68,7 +68,7 @@ class IntegrationTest(unittest.TestCase):
                 data = res.json()['data']
                 self.assertIsInstance(data, list)
                 map(lambda x: self.assert_attributes(x['attributes']), data)
-                self.assert_response_time(res, 7)
+                self.assert_response_time(res, 4)
                 self.assertEqual(res.status_code, 200)
 
     def test_get_by_invalid_term_id(self):
@@ -85,7 +85,7 @@ class IntegrationTest(unittest.TestCase):
 
         self.assertIn('data', res.json())
         self.assertIsInstance(res.json()['data'], dict)
-        self.assert_response_time(res, 5)
+        self.assert_response_time(res, 2)
         self.assertEqual(res.status_code, 200)
         self.assert_attributes(res.json()['data']['attributes'])
 

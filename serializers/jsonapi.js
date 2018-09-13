@@ -1,14 +1,12 @@
-const config = require('config');
 const decamelize = require('decamelize');
 const fs = require('fs');
 const yaml = require('js-yaml');
 const _ = require('lodash');
 const JSONAPISerializer = require('jsonapi-serializer').Serializer;
 
-const apiConfig = config.get('api');
 const swagger = yaml.safeLoad(fs.readFileSync('./swagger.yaml', 'utf8'));
 
-const StaffFeePrivilegeSerializer = (rows) => {
+const StaffFeePrivilegeSerializer = (rows, endpointUri) => {
   const rourceObject = swagger.definitions.StaffFeePrivilegeRourceObject;
   const type = rourceObject.properties.type.example;
   const keys = _.keys(rourceObject.properties.attributes.properties);
@@ -23,7 +21,7 @@ const StaffFeePrivilegeSerializer = (rows) => {
     id: 'ID',
     keyForAttribute: 'camelCase',
     dataLinks: {
-      self: row => `${apiConfig.endpointUri}/${apiConfig.name}/${row.ID}`,
+      self: row => `${endpointUri}/staff-fee-privilege/${row.ID}`,
     },
   }).serialize(rows);
 };

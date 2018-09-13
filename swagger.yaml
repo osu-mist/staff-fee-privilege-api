@@ -96,6 +96,12 @@ definitions:
         $ref: '#/definitions/SelfLink'
       attributes:
         properties:
+          term:
+            type: string
+            description: '6 digit term code'
+          studentOsuId:
+            type: string
+            description: 'OSU ID of student'
           studentLastName:
             type: string
             description: 'Last name of student'
@@ -117,36 +123,17 @@ definitions:
             type: string
             description: 'Student classification'
             example: 'Sophomore'
-          academicYear:
-            type: string
-            description: 'Academic year'
-            example: 'Acdemic Year 2017-18'
-          academicPeriod:
-            type: string
-            description: 'Academic period'
-            example: 'Fall 2017'
           campus:
             type: string
             description: 'Campus'
             example: 'Oregon State - Corvallis'
-          enrollmentStatus:
-            type: string
-            description: 'Enrollment status'
-            example: 'Eligible to Register'
-          currentEnrolled:
-            type: boolean
-            description: 'If true, the person is current enrolled'
-          currentRegistered:
-            type: boolean
-            description: 'If true, the person is current registered'
-          totalCredits:
-            type: number
-            format: integer
-            description: ' Total credits'
           receivableAccount:
             type: string
             description: 'Type of transaction in accounts receivable'
             example: 'OSU Staff Tuition'
+          employeeOsuId:
+            type: string
+            description: 'OSU ID of employee giving waiver to student'
           employeeLastName:
             type: string
             description: 'Last name of employee giving waiver to student'
