@@ -25,8 +25,6 @@ class IntegrationTest(unittest.TestCase):
 
     # helper funtion: test object attributes
     def assert_attributes(self, attributes):
-        self.assertTrue(attributes['currentEnrolled'])
-        self.assertTrue(attributes['currentRegistered'])
         self.assertIn(attributes['studentRate'], VALID_RATES)
 
     def test_bad_request(self):
