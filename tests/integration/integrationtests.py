@@ -66,7 +66,7 @@ class IntegrationTest(unittest.TestCase):
                 data = res.json()['data']
                 self.assertIsInstance(data, list)
                 map(lambda x: self.assert_attributes(x['attributes']), data)
-                self.assert_response_time(res, 4)
+                self.assert_response_time(res, 30)
                 self.assertEqual(res.status_code, 200)
 
     def test_get_by_invalid_term_id(self):
