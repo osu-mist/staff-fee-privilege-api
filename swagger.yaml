@@ -111,26 +111,6 @@ definitions:
           studentMiddleName:
             type: string
             description: 'Middle name student'
-          studentLevel:
-            type: string
-            description: 'Student level'
-            example: 'Undergraduate'
-          studentRate:
-            type: string
-            description: 'Student rate'
-            example: 'Resident Undergrad'
-          studentClassification:
-            type: string
-            description: 'Student classification'
-            example: 'Sophomore'
-          campus:
-            type: string
-            description: 'Campus'
-            example: 'Oregon State - Corvallis'
-          receivableAccount:
-            type: string
-            description: 'Type of transaction in accounts receivable'
-            example: 'OSU Staff Tuition'
           employeeOsuId:
             type: string
             description: 'OSU ID of employee giving waiver to student'
@@ -140,10 +120,6 @@ definitions:
           employeeFirstName:
             type: string
             description: 'First name of employee giving waiver to student'
-          employeeInstitution:
-            type: string
-            description: 'Institution of employment of employee'
-            example: 'Oregon State University'
   SelfLink:
     properties:
       self:
