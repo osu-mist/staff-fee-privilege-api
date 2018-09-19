@@ -4,7 +4,6 @@ const _ = require('lodash');
 const oracledb = require('oracledb');
 
 const contrib = reqlib('/contrib/contrib');
-const dbUtils = reqlib('/db/utils');
 const { StaffFeePrivilegeSerializer } = reqlib('/serializers/jsonapi');
 
 process.on('SIGINT', () => process.exit());
@@ -37,7 +36,6 @@ const getStaffFeePrivilegesByQuery = query =>
         contrib.getStaffFeePrivilegesByQuery(query),
         query,
       );
-      _.forEach(rows, row => dbUtils.sanitize(row));
       const jsonapi = StaffFeePrivilegeSerializer(rows, endpointUri);
       resolve(jsonapi);
       connection.close();
@@ -70,7 +68,7 @@ const getStaffFeePrivilegesById = query =>
         reject(new Error('Expect a single object but got multiple results.'));
       } else {
         const [row] = rows;
-        const jsonapi = StaffFeePrivilegeSerializer(dbUtils.sanitize(row), endpointUri);
+        const jsonapi = StaffFeePrivilegeSerializer(row, endpointUri);
         resolve(jsonapi);
       }
       connection.close();

@@ -5,15 +5,6 @@ from random import randint
 
 import utils
 
-VALID_RATES = [
-    'Staff Undergraduate',       # STUG
-    'Staff Graduate',            # STGR
-    'OSU Staff Dependent UG',    # SDUG
-    'OSU Staff Dependent Grad',  # SDGR
-    'OUS Staff Dependent UG',    # ODUG
-    'OUS Staff Dependent Grad'   # ODGR
-]
-
 
 class IntegrationTest(unittest.TestCase):
     # helper funtion: test response time
@@ -23,14 +14,10 @@ class IntegrationTest(unittest.TestCase):
 
         self.assertLess(elapsed_seconds, max_elapsed_seconds)
 
-    # helper funtion: test object attributes
-    def assert_attributes(self, attributes):
-        self.assertIn(attributes['studentRate'], VALID_RATES)
-
     def test_bad_request(self):
         res = utils.get_by_params(None)
 
-        self.assert_response_time(res, 1)
+        self.assert_response_time(res, 2)
         self.assertEqual(res.status_code, 400)
 
     def test_get_by_osu_id(self):
@@ -43,15 +30,14 @@ class IntegrationTest(unittest.TestCase):
                 self.assertIn('data', res.json())
                 data = res.json()['data']
                 self.assertIsInstance(data, list)
-                map(lambda x: self.assert_attributes(x['attributes']), data)
-                self.assert_response_time(res, 2)
+                self.assert_response_time(res, 3)
                 self.assertEqual(res.status_code, 200)
 
     def test_get_by_invalid_osu_id(self):
         res = utils.get_by_params({'osuId': 'invalid_osu_id'})
         res_data = res.json()['data']
 
-        self.assert_response_time(res, 1)
+        self.assert_response_time(res, 2)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res_data, [])
 
@@ -65,8 +51,7 @@ class IntegrationTest(unittest.TestCase):
                 self.assertIn('data', res.json())
                 data = res.json()['data']
                 self.assertIsInstance(data, list)
-                map(lambda x: self.assert_attributes(x['attributes']), data)
-                self.assert_response_time(res, 30)
+                self.assert_response_time(res, 3)
                 self.assertEqual(res.status_code, 200)
 
     def test_get_by_invalid_term_id(self):
@@ -74,7 +59,7 @@ class IntegrationTest(unittest.TestCase):
 
         self.assertIn('data', res.json())
         self.assertEqual(res.json()['data'], [])
-        self.assert_response_time(res, 1)
+        self.assert_response_time(res, 2)
         self.assertEqual(res.status_code, 200)
 
     def test_get_by_valid_id(self):
@@ -83,15 +68,14 @@ class IntegrationTest(unittest.TestCase):
 
         self.assertIn('data', res.json())
         self.assertIsInstance(res.json()['data'], dict)
-        self.assert_response_time(res, 2)
+        self.assert_response_time(res, 3)
         self.assertEqual(res.status_code, 200)
-        self.assert_attributes(res.json()['data']['attributes'])
 
     def test_get_by_invalid_id(self):
         id = 'invalid_id'
         res = utils.get_by_id(id)
 
-        self.assert_response_time(res, 1)
+        self.assert_response_time(res, 2)
         self.assertEqual(res.status_code, 404)
 
 
