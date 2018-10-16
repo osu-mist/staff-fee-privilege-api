@@ -19,6 +19,7 @@ paths:
   '/staff-fee-privilege':
     get:
       description: 'Get all students who use staff fee privilege by term'
+      operationId: getStaffFeePrivileges
       parameters:
         - in: query
           name: term
@@ -45,6 +46,7 @@ paths:
   '/staff-fee-privilege/{id}':
     get:
       description: 'Get student who uses staff fee privilege by unique ID'
+      operationId: getStaffFeePrivilegeByID
       parameters:
         - name: id
           in: path
