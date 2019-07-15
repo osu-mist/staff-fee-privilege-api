@@ -30,7 +30,7 @@
     "express-basic-auth": "^1.1.7",
     "express-healthcheck": "^0.1.0",
     "express-winston": "^2.6.0",
-    "js-yaml": "^3.11.0",
+    "js-yaml": "^3.13.1",
     "jsonapi-serializer": "^3.6.2",
     "lodash": "^4.17.13",
     "moment": "^2.22.1",
