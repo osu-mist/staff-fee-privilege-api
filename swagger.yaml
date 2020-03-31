@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: 'Staff Fee Privilege API'
-  description: 'Report the people who used the staff fee privilege for each term'
+  description: Get information about people who used the staff fee privilege.
   version: '1.0.0'
   license:
     name: 'GNU Affero General Public License Version 3'
@@ -15,6 +15,9 @@ schemes:
 basePath: /v1
 produces:
   - application/json
+security:
+  - OAuth2:
+    - full
 paths:
   '/staff-fee-privilege':
     get:
@@ -29,7 +32,6 @@ paths:
           name: osuId
           description: 'OSU ID'
           type: string
-        - $ref: '#/parameters/authorization'
       responses:
         '200':
           description: 'Successful response'
@@ -53,7 +55,6 @@ paths:
           description: 'Concatenate OSU ID and a 6 digit term code with a dash delimiter (e.g., 931234567-201802)'
           required: true
           type: string
-        - $ref: '#/parameters/authorization'
       responses:
         '200':
           description: 'Successful response'
@@ -67,13 +68,13 @@ paths:
           description: 'Internal Server Error'
           schema:
             $ref: '#/definitions/Error'
-parameters:
-  authorization:
-    name: Authorization
-    in: header
-    type: string
-    required: true
-    description: '"Bearer [token]" where [token] is your OAuth2 access token'
+securityDefinitions:
+  OAuth2:
+    type: oauth2
+    flow: application
+    tokenUrl: https://api.oregonstate.edu/oauth2/token
+    scopes:
+      full: Full access to the API
 definitions:
   StaffFeePrivilegeResultObjects:
     properties:
