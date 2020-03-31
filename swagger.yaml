@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: 'Staff Fee Privilege API'
-  description: Get information about people who used the staff fee privilege in the last term.
+  description: Get information about people who used the staff fee privilege.
   version: '1.0.0'
   license:
     name: 'GNU Affero General Public License Version 3'
