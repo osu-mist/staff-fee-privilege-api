@@ -35,7 +35,7 @@
     "lodash": "^4.17.13",
     "moment": "^2.22.1",
     "oracledb": "^3.0.0",
-    "simple-git": "^1.107.0",
+    "simple-git": "^3.3.0",
     "winston": "^2.4.3",
     "winston-daily-rotate-file": "^3.5.0"
   },
