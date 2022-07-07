@@ -33,7 +33,7 @@
     "js-yaml": "^3.13.1",
     "jsonapi-serializer": "^3.6.2",
     "lodash": "^4.17.13",
-    "moment": "^2.22.1",
+    "moment": "^2.29.4",
     "oracledb": "^3.0.0",
     "simple-git": "^1.107.0",
     "winston": "^2.4.3",
